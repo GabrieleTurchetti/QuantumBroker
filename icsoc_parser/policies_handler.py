@@ -4,20 +4,26 @@ def policy_is_valid(policy):
     name = policy.split("-")[0]
     level = int(policy.split("-")[1])
 
-    if (name != "lowcost" and name != "fast" and name != "accurate" and name != "fair" and name != "balanced"):
+    if name != "lowcost" and name != "fast" and name != "accurate" and name != "fair" and name != "balanced":
         return False
 
-    if (level < 1 or level > 99):
+    if level < 1 or level > 99:
         return False
 
     return True
 
 def filter_dispatches_by_policies(dispatches, total_shots, policies):
+    if len(dispatches) < 1:
+        raise Exception("No dispach found")
+
     new_dispatches = dispatches
 
     for policy in policies:
-        if (not policy_is_valid(policy)):
+        if not policy_is_valid(policy):
             raise Exception("Policy not valid")
+
+        if len(new_dispatches) == 1:
+            break
 
         policy_name = policy.split("-")[0]
         policy_level = int(policy.split("-")[1])
