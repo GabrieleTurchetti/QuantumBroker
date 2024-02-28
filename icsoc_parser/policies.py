@@ -43,7 +43,8 @@ def get_balancing(dispatch, total_shots):
     total_time = list(dispatch["total_time"])[0][0]
     used_backends = len(dispatch["dispatch"])
     deviation = get_deviation(dispatch, total_shots)
-    return - total_cost * 100 - total_time + used_backends * 1000 - deviation
+    balancing = - total_cost * 10 - total_time + used_backends * 100 - deviation
+    return balancing
 
 def balanced(dispatches, total_shots, level):
     percentage = 100 - level

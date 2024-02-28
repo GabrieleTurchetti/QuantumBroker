@@ -86,5 +86,5 @@
         }
     ],
     "optimise": ["total_time","total_energy_cost","-used_computers","shots_difference"],
-    "policies": ["lowcost-50"]
+    "policies": []
 }
