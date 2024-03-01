@@ -78,7 +78,7 @@
             ]
         },
         {
-            "key": "used_machines",
+            "key": "used_computers",
             "value": {
                 "count": [
                     "M"
@@ -93,7 +93,7 @@
         }
     ],
     "optimise": [
-        "-used_machines",
+        "-used_computers",
         "total_energy_cost"
     ]
 }

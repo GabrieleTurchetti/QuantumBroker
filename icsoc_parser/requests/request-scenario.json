@@ -46,7 +46,7 @@
             }
         },
         {
-            "key": "used_machines",
+            "key": "used_computers",
             "value": {
                 "count": [
                     "M"
@@ -77,7 +77,7 @@
     ],
     "optimise": [
         "total_cost",
-        "-used_machines",
+        "-used_computers",
         "total_execution_time"
     ]
 }
