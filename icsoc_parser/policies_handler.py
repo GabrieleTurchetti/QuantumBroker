@@ -1,13 +1,13 @@
-from policies import lowcost, fast, accurate, fair, balanced
+from policy_handler import filter_dispatches_by_policy
 
 def policy_is_valid(policy):
-    name = policy.split("-")[0]
-    level = int(policy.split("-")[1])
+    try:
+        if not (policy["cost_weight"] + policy["time_weight"] + policy["accuracy_weight"] + policy["uniformity_weight"] == 1):
+            return False
 
-    if name != "lowcost" and name != "fast" and name != "accurate" and name != "fair" and name != "balanced":
-        return False
-
-    if level < 1 or level > 99:
+        if policy["level"] < 1 or policy["level"] > 99:
+            return False
+    except:
         return False
 
     return True
@@ -24,14 +24,11 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
 
         if len(new_dispatches) == 1:
             break
-
-        policy_name = policy.split("-")[0]
-        policy_level = int(policy.split("-")[1])
-        policy_func = eval(policy_name)
-        new_dispatches = policy_func(new_dispatches, total_shots, policy_level)
+            
+        new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, (policy["cost_weight"], policy["time_weight"], policy["accuracy_weight"], policy["uniformity_weight"]), policy["level"])
 
     if len(new_dispatches) > 1:
-        new_dispatches = balanced(new_dispatches, total_shots, 99)
+        new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, (0.25, 0.25, 0.25, 0.25), 99)
 
     dispatch = new_dispatches[0]
     return dispatch

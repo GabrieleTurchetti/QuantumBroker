@@ -44,7 +44,6 @@ def _parse_computers(computers):
         f.write("\n".join(parsed_machines))
 
 def policy(computers, original_request):
-
     #_parse_computers(computers)
     _parse_request(original_request)
 
@@ -65,7 +64,6 @@ def policy(computers, original_request):
         f.write(request)
 
     # print("Solving...")
-
     start = time.time()
     print("Start time: {}".format(datetime.fromtimestamp(start)))
 
@@ -73,8 +71,8 @@ def policy(computers, original_request):
         answers = solve("asp/"+'program.lp', options=["--time-limit={}".format(original_request["@time_limit"])])
     else:
         answers = solve("asp/"+'program.lp') 
-    answer = None
 
+    answer = None
     dispatches = [] #### added
 
     for answer in answers.by_predicate:
@@ -85,11 +83,8 @@ def policy(computers, original_request):
     answer = filter_dispatches_by_policies(dispatches, original_request["shots"], original_request["policies"]) #### added
     end = time.time()
     # print("End time: {}".format(datetime.fromtimestamp(end)))
-
     print("\nTime elapsed: {}".format(end - start))
-
     print("\nDispatch selected: ", answer, "\n") #### added
-    
     return parse_answer(answer)
 
 def parse_answer(answer):
