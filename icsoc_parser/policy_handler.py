@@ -16,11 +16,10 @@ def get_dispatch_value(dispatch, total_shots, weights, min_values, max_values):
     used_computers = len(dispatch["dispatch"])
     deviation = get_deviation(dispatch, total_shots)
     normalized_cost = (cost - min_values[0]) / (max_values[0] - min_values[0])
-    normalized_time = (cost - min_values[1]) / (max_values[1] - min_values[1])
-    normalized_used_computers = (cost - min_values[2]) / (max_values[2] - min_values[3])
-    normalized_deviation = (cost - min_values[3]) / (max_values[3] - min_values[3])
+    normalized_time = (time - min_values[1]) / (max_values[1] - min_values[1])
+    normalized_used_computers = (used_computers - min_values[2]) / (max_values[2] - min_values[3])
+    normalized_deviation = (deviation - min_values[3]) / (max_values[3] - min_values[3])
     value = - normalized_cost * cost_weight - normalized_time * time_weight + normalized_used_computers * accuracy_weight - normalized_deviation * uniformity_weight
-    print(value)
     return value
 
 def filter_dispatches_by_policy(dispatches, total_shots, weights, level):
@@ -36,6 +35,5 @@ def filter_dispatches_by_policy(dispatches, total_shots, weights, level):
     max_values = (max_cost, max_time, max_used_computers, max_deviation)
     percentage = 100 - level
     new_size = math.ceil((len(dispatches) * percentage) / 100)
-    print("\n")
     dispatches.sort(key = lambda dispatch: get_dispatch_value(dispatch, total_shots, weights, min_values, max_values), reverse = True)
     return dispatches[:new_size]

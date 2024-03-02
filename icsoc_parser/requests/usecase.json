@@ -1,7 +1,6 @@
 {
     "shots": 20,
     "max_cost": 10000000,
-
     "constraints": [
         {
             "target": "machine.technology",
@@ -85,14 +84,14 @@
             ]
         }
     ],
-    "optimise": ["total_time","total_energy_cost","-used_computers","shots_difference"],
+    "optimise": ["total_time", "total_energy_cost", "-used_computers", "shots_difference"],
     "policies": [
         {
-            "cost_weight": 0.25,
-            "time_weight": 0.25,
-            "accuracy_weight": 0.25,
-            "uniformity_weight": 0.25,
-            "level": 1
+            "cost_weight": 1,
+            "time_weight": 0,
+            "accuracy_weight": 0,
+            "uniformity_weight": 0,
+            "level": 99
         }
     ]
 }
