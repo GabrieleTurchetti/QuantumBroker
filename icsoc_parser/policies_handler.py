@@ -2,10 +2,10 @@ from policy_handler import filter_dispatches_by_policy
 
 def policy_is_valid(policy):
     try:
-        if policy["cost_weight"] < 0 or policy["time_weight"] < 0 or policy["accuracy_weight"] < 0 or policy["uniformity_weight"] < 0:
+        if policy["cost_weight"] < 0 or policy["time_weight"] < 0 or policy["reliability_weight"] < 0 or policy["uniformity_weight"] < 0:
             return False
 
-        if not (policy["cost_weight"] + policy["time_weight"] + policy["accuracy_weight"] + policy["uniformity_weight"] == 1):
+        if not (policy["cost_weight"] + policy["time_weight"] + policy["reliability_weight"] + policy["uniformity_weight"] == 1):
             return False
 
         if policy["level"] < 1 or policy["level"] > 99:
@@ -28,7 +28,7 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
         if len(new_dispatches) == 1:
             break
             
-        new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, (policy["cost_weight"], policy["time_weight"], policy["accuracy_weight"], policy["uniformity_weight"]), policy["level"])
+        new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, (policy["cost_weight"], policy["time_weight"], policy["reliability_weight"], policy["uniformity_weight"]), policy["level"])
 
     if len(new_dispatches) > 1:
         new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, (0.25, 0.25, 0.25, 0.25), 99)

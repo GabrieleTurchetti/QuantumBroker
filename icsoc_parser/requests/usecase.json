@@ -87,10 +87,10 @@
     "optimise": ["total_time", "total_energy_cost", "-used_computers", "shots_difference"],
     "policies": [
         {
-            "cost_weight": 1,
+            "cost_weight": 0,
             "time_weight": 0,
-            "accuracy_weight": 0,
-            "uniformity_weight": 0,
+            "reliability_weight": 0,
+            "uniformity_weight": 1,
             "level": 99
         }
     ]
