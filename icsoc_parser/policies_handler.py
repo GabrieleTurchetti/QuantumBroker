@@ -2,6 +2,9 @@ from policy_handler import filter_dispatches_by_policy
 
 def policy_is_valid(policy):
     try:
+        if policy["cost_weight"] < 0 or policy["time_weight"] < 0 or policy["accuracy_weight"] < 0 or policy["uniformity_weight"] < 0:
+            return False
+
         if not (policy["cost_weight"] + policy["time_weight"] + policy["accuracy_weight"] + policy["uniformity_weight"] == 1):
             return False
 
