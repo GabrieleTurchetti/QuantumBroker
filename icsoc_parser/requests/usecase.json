@@ -84,14 +84,17 @@
             ]
         }
     ],
-    "optimise": ["total_time", "total_energy_cost", "-used_computers", "shots_difference"],
+    "optimise": [],
     "policies": [
         {
-            "cost_weight": 0,
-            "time_weight": 0,
-            "reliability_weight": 0,
-            "uniformity_weight": 1,
-            "level": 50
+            "weights": {
+                "cost": 1,
+                "eco_sustainability": 1,
+                "time": 1,
+                "reliability": 1,
+                "uniformity": 1
+            },
+            "level": 99
         }
     ]
 }
