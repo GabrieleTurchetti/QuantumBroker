@@ -2,12 +2,12 @@ import math
 
 def get_dispatch_standard_deviation(dispatch, total_shots):
     avg = total_shots / len(dispatch["dispatch"])
-    tot = 0
+    sum = 0
 
     for _, _, shots in dispatch["dispatch"]:
-        tot += (shots - avg) ** 2
+        sum += (shots - avg) ** 2
 
-    deviation = math.sqrt(tot / len(dispatch["dispatch"]))
+    deviation = math.sqrt(sum / len(dispatch["dispatch"]))
     return deviation
 
 def get_dispatch_value(dispatch, total_shots, weights, min_values, max_values):
@@ -16,10 +16,10 @@ def get_dispatch_value(dispatch, total_shots, weights, min_values, max_values):
     time = list(dispatch["total_time"])[0][0]
     used_computers = len(dispatch["dispatch"])
     deviation = get_dispatch_standard_deviation(dispatch, total_shots)
-    normalized_cost = (cost - min_values[0]) / (max_values[0] - min_values[0])
-    normalized_time = (time - min_values[1]) / (max_values[1] - min_values[1])
-    normalized_used_computers = (used_computers - min_values[2]) / (max_values[2] - min_values[3])
-    normalized_deviation = (deviation - min_values[3]) / (max_values[3] - min_values[3])
+    normalized_cost = (cost - min_values[0]) / ((max_values[0] - min_values[0]) if (max_values[0] - min_values[0]) != 0 else 1)
+    normalized_time = (time - min_values[1]) / ((max_values[1] - min_values[1]) if (max_values[1] - min_values[1]) != 0 else 1)
+    normalized_used_computers = (used_computers - min_values[2]) / ((max_values[2] - min_values[2]) if (max_values[2] - min_values[2]) != 0 else 1)
+    normalized_deviation = (deviation - min_values[3]) / ((max_values[3] - min_values[3]) if (max_values[3] - min_values[3]) != 0 else 1)
     value = - normalized_cost * cost_weight - normalized_time * time_weight + normalized_used_computers * reliability_weight - normalized_deviation * uniformity_weight
     return value
 
