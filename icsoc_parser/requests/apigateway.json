@@ -16,5 +16,8 @@
             }
         }
     ],
-    "optimise": ["priority_metric","-used_computers","shots_difference"]
+    "optimise": [],
+    "policies": [
+        "reliable-99"
+    ]
 }

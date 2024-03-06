@@ -90,7 +90,7 @@ def policy(computers, original_request):
 def parse_answer(answer):
     return answer["dispatch"]
     
-REQUEST = "./requests/"+"usecase.json"
+REQUEST = "./requests/"+"apigateway.json"
 
 if __name__ == "__main__":
     qb = QBroker(policy)

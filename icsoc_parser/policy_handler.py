@@ -1,6 +1,6 @@
 import math
 
-STANDARD_METRIC_NAMES = ["total_cost", "total_time", "used_computers", "shots_difference"]
+STANDARD_METRICS = ["total_cost", "total_time", "used_computers", "shots_difference"]
 
 def get_dispatch_deviation(dispatch, total_shots):
     avg = total_shots / get_dispatch_len(dispatch)
@@ -34,7 +34,7 @@ def get_dispatch_value(dispatch, total_shots, weights, min_values, max_values):
     value = normalized_total_cost * (weights["total_cost"] if "total_cost" in weights else 0) + normalized_total_time * (weights["total_time"] if "total_time" in weights else 0) + normalized_used_computers * (weights["used_computers"] if "used_computers" in weights else 0) + normalized_shots_difference * (weights["shots_difference"] if "shots_difference" in weights else 0)
 
     for key, _ in weights.items():
-        if not key in STANDARD_METRIC_NAMES:
+        if not key in STANDARD_METRICS:
             addional_value = list(dispatch[key])[0][0]
             additional_normalized_value = (addional_value - min_values[key]) / ((max_values[key] - min_values[key]) if (max_values[key] - min_values[key]) != 0 else 1)
             value += additional_normalized_value * weights[key]
@@ -54,7 +54,7 @@ def filter_dispatches_by_policy(dispatches, total_shots, weights, level):
     additional_max_values = {}
 
     for key, _ in weights.items():
-        if not key in STANDARD_METRIC_NAMES:
+        if not key in STANDARD_METRICS:
             try:
                 additional_min_values[key] = list(min(dispatches, key = lambda dispatch: list(dispatch[key])[0][0])[key])[0][0]
                 additional_max_values[key] = list(max(dispatches, key = lambda dispatch: list(dispatch[key])[0][0])[key])[0][0]

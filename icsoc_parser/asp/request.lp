@@ -32,17 +32,8 @@ machine_total_load(M, Machine_total_load) :- machine(M), Machine_total_load = #s
 
 total_shots(20).
 max_cost(10000000).
-:- compatible(M, C), technology(M, Technology), Technology == simulator.
-:- compatible(M, C), region(M, Region), Region != europe.
-total_energy_cost(Total_energy_cost) :- Total_energy_cost = #sum{ E, M : compatible(M,C), dispatch(M,C,S), shots(S), S > 0, energy_cost(M, C, S, E) }.
-energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, superconductor), gates1q(C,G1), gates2q(C,G2), gates1q_speed(M,G1_speed), gates2q_speed(M,G2_speed), kWh(M, K), circuit_depth(C, Req_depth), Energy_cost = S*(G1_speed*G1 + G2_speed*G2)*K.
-energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, trapped_ions), gates1q(C,G1), gates2q(C,G2), gates1q_speed(M,G1_speed), gates2q_speed(M,G2_speed), kWh(M, K), Energy_cost = S*(G1_speed*G1 + G2_speed*G2)*K.
-energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, neutral_atoms), gates1q(C,G1), gates2q(C,G2), kWh(M, K), Energy_cost = ((G1 + G2)*S)/1000 * K.
-energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, simulator), gates1q(C,G1), gates2q(C,G2), kWh(M, K), Energy_cost = ((G1 + G2)*S)/10000 * K.
-#minimize{Total_time@4 : total_time(Total_time)}.
-#minimize{Total_energy_cost@3 : total_energy_cost(Total_energy_cost)}.
-#maximize{Used_computers@2 : used_computers(Used_computers)}.
-#minimize{Shots_difference@1 : shots_difference(Shots_difference)}.
+priority(100).
+priority_metric(Priority_metric) :- priority(Priority), total_time(Total_time), priority(Priority), total_cost(Total_cost), Priority_metric = ((Priority) * (Total_time)) + (((100) - (Priority)) * (Total_cost)).
 granularity(1).
 max_time(99999999).
-#show total_energy_cost/1.
+#show priority_metric/1.
