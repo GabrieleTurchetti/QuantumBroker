@@ -1,5 +1,5 @@
 import math
-from policy_handler import filter_dispatches_by_policy, get_dispatch_len, get_dispatch_deviation
+from generic_policy_handler import filter_dispatches_by_policy, get_dispatch_len, get_dispatch_deviation
 
 def cost_aware(dispatches, total_shots, level):
     return filter_dispatches_by_policy(dispatches, total_shots, {
