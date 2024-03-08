@@ -21,7 +21,6 @@ def get_dispatch_reliability(dispatch, total_shots):
     used_computers = get_dispatch_len(dispatch)
     shots_difference = get_dispatch_deviation(dispatch, total_shots)
     reliability = used_computers * (1 - shots_difference / total_shots)
-    print(dispatch, reliability)
     return reliability
 
 def reliable(dispatches, total_shots, level):

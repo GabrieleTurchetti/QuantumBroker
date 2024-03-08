@@ -1,14 +1,14 @@
 from generic_policy_handler import filter_dispatches_by_policy
 from standard_policies import cost_aware, time_aware, reliable
 
-STANDARD_POLICY_NAMES = ["cost-aware", "time-aware", "reliable"]
+STANDARD_POLICY = ["cost-aware", "time-aware", "reliable"]
 
 def policy_is_valid(policy):
     if isinstance(policy, str):
         policy_name = "-".join(policy.split("-")[:-1])
         policy_level = int(policy.split("-")[-1])
 
-        if not policy_name in STANDARD_POLICY_NAMES:
+        if not policy_name in STANDARD_POLICY:
             return False
 
         if policy_level < 1 or policy_level > 99:

@@ -27,16 +27,16 @@ def get_dispatch_value(dispatch, total_shots, metrics, min_values, max_values):
     total_time = list(dispatch["total_time"])[0][0]
     used_computers = get_dispatch_len(dispatch)
     shots_difference = get_dispatch_deviation(dispatch, total_shots)
-    normalized_total_cost = (total_cost - min_values["total_cost"]) / ((max_values["total_cost"] - min_values["total_cost"]) if (max_values["total_cost"] - min_values["total_cost"]) != 0 else 1)
-    normalized_total_time = (total_time - min_values["total_time"]) / ((max_values["total_time"] - min_values["total_time"]) if (max_values["total_time"] - min_values["total_time"]) != 0 else 1)
-    normalized_used_computers = (used_computers - min_values["used_computers"]) / ((max_values["used_computers"] - min_values["used_computers"]) if (max_values["used_computers"] - min_values["used_computers"]) != 0 else 1)
-    normalized_shots_difference = (shots_difference - min_values["shots_difference"]) / ((max_values["shots_difference"] - min_values["shots_difference"]) if (max_values["shots_difference"] - min_values["shots_difference"]) != 0 else 1)
+    normalized_total_cost = (total_cost - min_values["total_cost"]) / ((max_values["total_cost"] - min_values["total_cost"]) if max_values["total_cost"] != min_values["total_cost"] else 1)
+    normalized_total_time = (total_time - min_values["total_time"]) / ((max_values["total_time"] - min_values["total_time"]) if max_values["total_time"] != min_values["total_time"] else 1)
+    normalized_used_computers = (used_computers - min_values["used_computers"]) / ((max_values["used_computers"] - min_values["used_computers"]) if max_values["used_computers"] != min_values["used_computers"] else 1)
+    normalized_shots_difference = (shots_difference - min_values["shots_difference"]) / ((max_values["shots_difference"] - min_values["shots_difference"]) if max_values["shots_difference"] != min_values["shots_difference"] else 1)
     value = normalized_total_cost * (metrics["total_cost"] if "total_cost" in metrics else 0) + normalized_total_time * (metrics["total_time"] if "total_time" in metrics else 0) + normalized_used_computers * (metrics["used_computers"] if "used_computers" in metrics else 0) + normalized_shots_difference * (metrics["shots_difference"] if "shots_difference" in metrics else 0)
 
     for key, _ in metrics.items():
         if not key in STANDARD_METRICS:
             metric_value = list(dispatch[key])[0][0]
-            normalized_metric_value = (metric_value - min_values[key]) / ((max_values[key] - min_values[key]) if (max_values[key] - min_values[key]) != 0 else 1)
+            normalized_metric_value = (metric_value - min_values[key]) / ((max_values[key] - min_values[key]) if max_values[key] != min_values[key] else 1)
             value += normalized_metric_value * metrics[key]
 
     return value
