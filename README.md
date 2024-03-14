@@ -1,1 +1,1 @@
-# Quantum Broker con politiche di dispatch
+# Quantum Broker with Dispatch Policies

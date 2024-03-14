@@ -86,15 +86,6 @@
     ],
     "optimise": [],
     "policies": [
-        {
-            "metrics": {
-                "total_cost": 0,
-                "total_time": 0,
-                "used_computers": 1,
-                "shots_difference": -1,
-                "total_energy_cost": 0
-            },
-            "level": 99
-        }
+        "reliable-99"
     ]
 }

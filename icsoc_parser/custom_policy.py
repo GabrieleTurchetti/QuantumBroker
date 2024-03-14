@@ -1,26 +1,7 @@
 import math
+from dispach_utils import get_dispatch_len, get_dispatch_deviation
 
 STANDARD_METRICS = ["total_cost", "total_time", "used_computers", "shots_difference"]
-
-def get_dispatch_deviation(dispatch, total_shots):
-    avg = total_shots / get_dispatch_len(dispatch)
-    sum = 0
-
-    for _, _, shots in dispatch["dispatch"]:
-        if shots != 0:
-            sum += abs(shots - avg)
-
-    deviation = sum / get_dispatch_len(dispatch)
-    return deviation
-
-def get_dispatch_len(dispatch):
-    length = 0
-
-    for _, _, shots in dispatch["dispatch"]:
-        if shots != 0:
-            length += 1
-
-    return length
 
 def get_dispatch_value(dispatch, total_shots, metrics, min_values, max_values):
     total_cost = list(dispatch["total_cost"])[0][0]
@@ -41,7 +22,7 @@ def get_dispatch_value(dispatch, total_shots, metrics, min_values, max_values):
 
     return value
 
-def filter_dispatches_by_policy(dispatches, total_shots, metrics, level):
+def filter_dispatches_by_custom_policy(dispatches, total_shots, metrics, level):
     min_total_cost = list(min(dispatches, key = lambda dispatch: list(dispatch["total_cost"])[0][0])["total_cost"])[0][0] if "total_cost" in metrics else 0
     max_total_cost = list(max(dispatches, key = lambda dispatch: list(dispatch["total_cost"])[0][0])["total_cost"])[0][0] if "total_cost" in metrics else 0
     min_total_time = list(min(dispatches, key = lambda dispatch: list(dispatch["total_time"])[0][0])["total_time"])[0][0] if "total_time" in metrics else 0

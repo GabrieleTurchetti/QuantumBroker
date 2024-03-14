@@ -1,5 +1,5 @@
-from generic_policy_handler import filter_dispatches_by_policy
-from standard_policies import cost_aware, time_aware, reliable
+from custom_policy import filter_dispatches_by_custom_policy
+from standard_policies import filter_dispatches_by_cost_aware_policy, filter_dispatches_by_time_aware_policy, filter_dispatches_by_reliable_policy
 
 STANDARD_POLICY = ["cost-aware", "time-aware", "reliable"]
 
@@ -46,16 +46,16 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
 
             match policy_name:
                 case "cost-aware":
-                    new_dispatches = cost_aware(new_dispatches, total_shots, policy_level)
+                    new_dispatches = filter_dispatches_by_cost_aware_policy(new_dispatches, total_shots, policy_level)
                 case "time-aware":
-                    new_dispatches = time_aware(new_dispatches, total_shots, policy_level)
+                    new_dispatches = filter_dispatches_by_time_aware_policy(new_dispatches, total_shots, policy_level)
                 case "reliable":
-                    new_dispatches = reliable(new_dispatches, total_shots, policy_level)
+                    new_dispatches = filter_dispatches_by_reliable_policy(new_dispatches, total_shots, policy_level)
         else:
-            new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, policy["metrics"], policy["level"])
+            new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, policy["metrics"], policy["level"])
 
     if len(new_dispatches) > 1:
-        new_dispatches = filter_dispatches_by_policy(new_dispatches, total_shots, {
+        new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, {
             "total_cost": -1,
             "total_time": -1,
             "used_computers": 1,
