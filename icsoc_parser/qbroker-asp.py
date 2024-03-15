@@ -8,8 +8,7 @@ from asp.machine_parser import parse_machines
 from asp.request_parser import parse_request
 from qbroker import QBroker
 
-from policies_handler import filter_dispatches_by_policies
-
+from policies.policies_handler import filter_dispatches_by_policies
 
 def _parse_request(request):
     OUTPUT = "asp/"+"request.lp"
@@ -90,7 +89,7 @@ def policy(computers, original_request):
 def parse_answer(answer):
     return answer["dispatch"]
     
-REQUEST = "./requests/"+"apigateway.json"
+REQUEST = "./requests/"+"usecase.json"
 
 if __name__ == "__main__":
     qb = QBroker(policy)

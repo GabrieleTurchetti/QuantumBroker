@@ -17,9 +17,3 @@ def get_dispatch_deviation(dispatch, total_shots):
 
     deviation = sum / get_dispatch_len(dispatch)
     return deviation
-
-def get_dispatch_reliability(dispatch, total_shots):
-    used_computers = get_dispatch_len(dispatch)
-    shots_difference = get_dispatch_deviation(dispatch, total_shots)
-    reliability = used_computers / ((shots_difference * used_computers) / total_shots + 1)
-    return reliability

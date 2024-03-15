@@ -1,6 +1,17 @@
 import os
 import json
+import time
 
+from qukit.components.dispatcher import Dispatch, Dispatcher
+from qukit.components.virtual_provider import VirtualProvider
+from qukit.components.circuits import Circuit
+from pyquil import Program
+from pyquil.gates import *
+from dotenv import load_dotenv
+
+load_dotenv()
+
+IBM_API_TOKEN = os.getenv("IBM_API_TOKEN")
 COMPUTERS = "machines"
 
 class QBroker:
@@ -34,14 +45,45 @@ class QBroker:
         return self.policy(computers, request)
     
     def run(self, request):
-
         distribution = {}
 
         #print("Running request: {} on {}".format(request, self))
         computers = self.dispatch(request)
+
         for c in computers:
             print("Sending {} shots for circuit {} to {}".format(c[2], c[1], c[0]))
 
+        # send request
+        virtual_provider = VirtualProvider({
+            "IBMQ": IBM_API_TOKEN
+        })
+
+        p = Program()
+        ro = p.declare('ro', 'BIT', 1)
+        p += X(0)
+        p += MEASURE(0, ro[0])
+        circuit = Circuit(p)
+
+        dispatch = {
+            "IBMQ": {
+                "ibmq_qasm_simulator": [(circuit, 6)]
+            }
+        }
+
+        # for backend, circuit, shots in computers:
+            # dispatch["IBMQ"][backend] = (circuit, shots)
+
+        dispatcher = Dispatcher(virtual_provider)
+        dispatch = dispatcher.from_dict(dispatch)
+        results = dispatcher.run(dispatch)
+
+        while not dispatcher.results_ready(results):
+            print("...")
+            time.sleep(1)
+
+        results = dispatcher.get_results(results)
+        print(results)
+        
         return distribution
 
 if __name__ == "__main__":

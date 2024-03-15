@@ -1,5 +1,5 @@
-from custom_policy import filter_dispatches_by_custom_policy
-from standard_policies import filter_dispatches_by_cost_aware_policy, filter_dispatches_by_time_aware_policy, filter_dispatches_by_reliable_policy
+from .custom_policy import filter_dispatches_by_custom_policy
+from .standard_policies import filter_dispatches_by_cost_aware_policy, filter_dispatches_by_time_aware_policy, filter_dispatches_by_reliable_policy
 
 STANDARD_POLICY = ["cost-aware", "time-aware", "reliable"]
 

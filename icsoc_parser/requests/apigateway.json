@@ -16,8 +16,5 @@
             }
         }
     ],
-    "optimise": [],
-    "policies": [
-        "reliable-99"
-    ]
+    "optimise": []
 }

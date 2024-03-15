@@ -1,6 +1,6 @@
 import math
-from dispach_utils import get_dispatch_len, get_dispatch_deviation
-from custom_policy import filter_dispatches_by_custom_policy
+from .dispatch_utils import get_dispatch_len, get_dispatch_deviation
+from .custom_policy import filter_dispatches_by_custom_policy
 
 def filter_dispatches_by_cost_aware_policy(dispatches, total_shots, level):
     return filter_dispatches_by_custom_policy(dispatches, total_shots, {

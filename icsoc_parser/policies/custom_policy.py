@@ -1,5 +1,5 @@
 import math
-from dispach_utils import get_dispatch_len, get_dispatch_deviation
+from .dispatch_utils import get_dispatch_len, get_dispatch_deviation
 
 STANDARD_METRICS = ["total_cost", "total_time", "used_computers", "shots_difference"]
 
