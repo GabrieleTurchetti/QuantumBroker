@@ -1,6 +1,9 @@
 import os
 import json
 import time
+import sys
+
+sys.path.append('../')
 
 from qukit.components.dispatcher import Dispatch, Dispatcher
 from qukit.components.virtual_provider import VirtualProvider
