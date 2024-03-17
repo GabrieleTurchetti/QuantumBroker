@@ -2,6 +2,7 @@ import os
 import json
 import time
 import sys
+import qiskit.qasm2
 
 sys.path.append('../')
 
@@ -50,26 +51,34 @@ class QBroker:
     def run(self, request):
         distribution = {}
 
-        #print("Running request: {} on {}".format(request, self))
+        # print("Running request: {} on {}".format(request, self))
         computers = self.dispatch(request)
 
         for c in computers:
             print("Sending {} shots for circuit {} to {}".format(c[2], c[1], c[0]))
 
-        # send request
         virtual_provider = VirtualProvider({
             "IBMQ": IBM_API_TOKEN
         })
 
-        p = Program()
-        ro = p.declare('ro', 'BIT', 1)
-        p += X(0)
-        p += MEASURE(0, ro[0])
-        circuit = Circuit(p)
+        program = """
+            OPENQASM 2.0;
+            include "qelib1.inc";
+            qreg q[2];
+            creg c[2];
+
+            h q[0];
+            cx q[0], q[1];
+
+            measure q -> c;
+        """
+
+        circuit = qiskit.qasm2.loads(program)
+        circuit = Circuit(circuit)
 
         dispatch = {
             "IBMQ": {
-                "ibmq_qasm_simulator": [(circuit, 6)]
+                "ibmq_qasm_simulator": [(circuit, 100)]
             }
         }
 
@@ -86,7 +95,6 @@ class QBroker:
 
         results = dispatcher.get_results(results)
         print(results)
-        
         return distribution
 
 if __name__ == "__main__":
