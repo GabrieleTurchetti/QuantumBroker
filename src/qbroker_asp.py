@@ -9,13 +9,13 @@ from pytket.circuit import OpType
 from qiskit.circuit import QuantumCircuit
 from qiskit_ibm_provider import IBMProvider
 
-from components.dispatcher import Dispatcher
+from .components.dispatcher import Dispatcher
 
-from components.qbroker import brokering as QuantumBroker, process_partial_distributions
-from components.translator import Translator
-from components.utils.logger import *
+from .components.qbroker import brokering as QuantumBroker, process_partial_distributions
+from .components.translator import Translator
+from .components.utils.logger import *
 
-from components.utils.utils import ThreadWithReturnValue as Thread
+from .components.utils.utils import ThreadWithReturnValue as Thread
 
 from threading import Semaphore
 circuits_semaphore = Semaphore(1)
@@ -153,23 +153,17 @@ def parse_circuit(circuit_id, circuit):
     
     text = ""
     
-    text += f"circuit({circuit_id}, {circuit['provider']}, {circuit['backend'].lower()}, {circuit['compiler']}).\n"
+    text += f"circuit({circuit_id}).\n"
     
-    text += f"circuit_depth({circuit_id}, {tket_circuit.depth()}).\n"
-    text += f"circuit_depth2q({circuit_id}, {tket_circuit.depth_2q()}).\n"
+    text += f"circuit_depth({circuit_id}, {tket_circuit.depth_2q()}).\n"
     
-    text += f"circuit_width({circuit_id}, {tket_circuit.n_qubits}).\n"
-    
-    text += f"circuit_bits({circuit_id}, {tket_circuit.n_bits}).\n"
-    text += f"circuit_gates({circuit_id}, {tket_circuit.n_gates}).\n"
-    text += f"circuit_1q_gates({circuit_id}, {tket_circuit.n_1qb_gates()}).\n"
-    text += f"circuit_2q_gates({circuit_id}, {tket_circuit.n_2qb_gates()}).\n"
-    for i in range(3, 9):
-        text += f"circuit_nq_gates({circuit_id}, {i}, {tket_circuit.n_nqb_gates(i)}).\n"
+    text += f"circuit_lang({circuit_id}, openqasm2).\n"
+
+    text += f"circuit_qubits({circuit_id}, {tket_circuit.n_bits}).\n"
+    text += f"gates1q({circuit_id}, {tket_circuit.n_1qb_gates()}).\n"
+    text += f"gates2q({circuit_id}, {tket_circuit.n_2qb_gates()}).\n"
         
-    text += f"circuit_spam_gates({circuit_id}, {tket_circuit.n_gates_of_type(OpType.Measure) + tket_circuit.n_gates_of_type(OpType.Reset)}).\n"
-    
-    text += thread.join()
+    text += f"circuit_computer({circuit_id}, {circuit['backend'].lower()}).\n"
     
     text += "\n\n"
     
@@ -370,4 +364,4 @@ def update_partial_distributions(partial_distributions):
 
 
 if __name__ == "__main__":
-    print(run_asp("./src/dispatch_policies/dispatch_policy.lp"))
+    print(run_asp("./dispatch_policies/dispatch_policy.lp"))

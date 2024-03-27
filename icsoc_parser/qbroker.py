@@ -4,7 +4,7 @@ import time
 import sys
 import qiskit.qasm2
 
-sys.path.append('../')
+sys.path.append("../")
 
 from qukit.components.dispatcher import Dispatch, Dispatcher
 from qukit.components.virtual_provider import VirtualProvider
@@ -57,24 +57,18 @@ class QBroker:
         for c in computers:
             print("Sending {} shots for circuit {} to {}".format(c[2], c[1], c[0]))
 
-        virtual_provider = VirtualProvider({
+        """virtual_provider = VirtualProvider({
             "IBMQ": IBM_API_TOKEN
         })
 
-        program = """
-            OPENQASM 2.0;
-            include "qelib1.inc";
-            qreg q[2];
-            creg c[2];
+        p = Program()
+        ro = p.declare('ro', 'BIT', 1)
+        p += X(0)
+        p += MEASURE(0, ro[0])
+        circuit = Circuit(p)
 
-            h q[0];
-            cx q[0], q[1];
-
-            measure q -> c;
-        """
-
-        circuit = qiskit.qasm2.loads(program)
-        circuit = Circuit(circuit)
+        #circuit = qiskit.qasm2.loads(p)
+        #circuit = Circuit(circuit)
 
         dispatch = {
             "IBMQ": {
@@ -94,7 +88,7 @@ class QBroker:
             time.sleep(1)
 
         results = dispatcher.get_results(results)
-        print(results)
+        print(results)"""
         return distribution
 
 if __name__ == "__main__":

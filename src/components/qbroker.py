@@ -3,14 +3,14 @@ import pytket.circuit
 
 from typing import Callable, Dict, List, Tuple, Any, Type
 
-from components.compilation_manager import CompilationManager
-from components.dispatcher import Dispatcher
-from components.translator import Translator
-from components.virtual_provider import VirtualProvider
+from .compilation_manager import CompilationManager
+from .dispatcher import Dispatcher
+from .translator import Translator
+from .virtual_provider import VirtualProvider
 
-from components.utils.utils import ThreadWithReturnValue as Thread
+from .utils.utils import ThreadWithReturnValue as Thread
 
-from components.utils.logger import *
+from .utils.logger import *
 
 #TODO: multiple circuits together?
 
@@ -32,6 +32,7 @@ translator = Translator()
 
 def compile_for_all_backends(circuit: Any, metric: bool = True, all: bool = False) -> Dict[str, Dict[str, Dict[str, Any]]]:
     available_backends = vp.get_backends()
+    print("\n\nAvailable backends: ", available_backends, "\n\n")
     
     if metric:
         def metric(circuit: Any) -> int:
@@ -60,7 +61,7 @@ def compile_for_all_backends(circuit: Any, metric: bool = True, all: bool = Fals
                     circuits[provider][backend] = circuit[0]
                 elif all:
                     circuits[provider][backend] = circuit
-                
+
     return circuits
 
 def translate_all_circuits(circuits: dict[str, dict[str, dict[str, Any]]], to_language: str | Any | Type) -> dict[str, dict[str, dict[str, Any]]]:
@@ -101,13 +102,13 @@ def make_circuit_repository(circuits: dict[str, dict[str, dict[str, Any]]]) -> d
                 
     return circuit_repository
 
-def brokering(circuit: Any, get_dispatch_policy: Callable[[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, Any]], dict], dict[str, dict[str, dict[str, Any]]]], requirements: dict = {}, dispatch: bool = True, wait: bool = True) -> dict[str, dict[str, Any]]:
+def brokering(circuit: Any, get_dispatch_policy: Callable[[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, Any]], dict], dict[str, dict[str, dict[str, Any]]]] = None, requirements: dict = {}, dispatch: bool = True, wait: bool = True) -> dict[str, dict[str, Any]]:
     import time
     import warnings
     
     log_info("QuantumBroker: Starting...")
     log_info("QuantumBroker: Getting backends...")
-    log_debug(vp.get_backends())
+    # log_debug(vp.get_backends())
     
     def circuit_repository(circuit):
         log_info("QuantumBroker: Compiling circuits for all backends...")
@@ -126,13 +127,15 @@ def brokering(circuit: Any, get_dispatch_policy: Callable[[dict[str, dict[str, d
     circuit_repository_thread = Thread(target=circuit_repository, args=(circuit,))
     circuit_repository_thread.start()
     
-    backends_info_thread = Thread(target=backends_info)
-    backends_info_thread.start()
+    # backends_info_thread = Thread(target=backends_info)
+    # backends_info_thread.start()
     
     repository = circuit_repository_thread.join()
-    backends = backends_info_thread.join()
-    
-    log_info("QuantumBroker: Retrieving dispatch policy...")
+    # backends = backends_info_thread.join()
+
+    return repository
+
+    """log_info("QuantumBroker: Retrieving dispatch policy...")
     dispatch_policy = get_dispatch_policy(repository, backends, requirements)
     
     if dispatch:
@@ -161,7 +164,7 @@ def brokering(circuit: Any, get_dispatch_policy: Callable[[dict[str, dict[str, d
             
         return partial_distributions, dispatch_policy
     else:
-        return dispatch_policy
+        return dispatch_policy"""
 
 def process_partial_distributions(partial_distributions):
     results = []

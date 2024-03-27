@@ -16,7 +16,7 @@ import pyquil
 import pytket.extensions.qiskit as pytket_qiskit
 import qiskit
 
-import components.backends.IonQBackend.pytket.extensions.ionq as pytket_ionq
+from .backends.IonQBackend.pytket.extensions import ionq as pytket_ionq
 
 import pytket.extensions.pennylane as pytket_pennylane
 import pennylane
@@ -27,7 +27,7 @@ import pytket.qir as pytket_qir
 
 from typing import List, Union, Any, Type
 
-from components.utils.logger import *
+from .utils.logger import *
 
 def not_implemented(_):
     raise NotImplementedError("Translation not implemented")

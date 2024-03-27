@@ -6,9 +6,10 @@ from clyngor import solve
 
 from asp.machine_parser import parse_machines
 from asp.request_parser import parse_request
+from asp.circuit_parser import parse_circuit
 from qbroker import QBroker
 
-from policies.policies_handler import filter_dispatches_by_policies
+from policies.policies_manager import filter_dispatches_by_policies
 
 def _parse_request(request):
     OUTPUT = "asp/"+"request.lp"
@@ -42,9 +43,17 @@ def _parse_computers(computers):
     with open(OUTPUT, "w+") as f:
         f.write("\n".join(parsed_machines))
 
+def _parse_circuit(circuit):
+    OUTPUT = "asp/circuits.lp"
+    parsed_circuit = parse_circuit(circuit)
+
+    with open(OUTPUT, "w+") as f:
+        f.write(parsed_circuit)
+
 def policy(computers, original_request):
     #_parse_computers(computers)
     _parse_request(original_request)
+    _parse_circuit(original_request["circuit"])
 
     with open("asp/"+"request.lp") as f:
         request = f.read()
@@ -72,24 +81,23 @@ def policy(computers, original_request):
         answers = solve("asp/"+'program.lp') 
 
     answer = None
-    dispatches = [] #### added
+    dispatches = []
 
     for answer in answers.by_predicate:
-        print("\n", answer) #### added
-        dispatches.append(answer) #### added
-        # pass #### removed
+        print(f"\n{answer}")
+        dispatches.append(answer)
     
-    answer = filter_dispatches_by_policies(dispatches, original_request["shots"], original_request["policies"]) #### added
+    answer = filter_dispatches_by_policies(dispatches, original_request["shots"], original_request["policies"])
     end = time.time()
     # print("End time: {}".format(datetime.fromtimestamp(end)))
     print("\nTime elapsed: {}".format(end - start))
-    print("\nDispatch selected: ", answer, "\n") #### added
+    print("\nDispatch selected: ", answer, "\n")
     return parse_answer(answer)
 
 def parse_answer(answer):
     return answer["dispatch"]
     
-REQUEST = "./requests/"+"usecase.json"
+REQUEST = "./requests/"+"apigateway.json"
 
 if __name__ == "__main__":
     qb = QBroker(policy)

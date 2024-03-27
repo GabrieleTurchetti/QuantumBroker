@@ -20,12 +20,12 @@ from qiskit_ibm_provider import IBMProvider
 from qiskit_ionq import IonQProvider
 from qiskit_ibm_runtime import QiskitRuntimeService
 
-from components.backends.IonQBackend.pytket.extensions.ionq import IonQBackend
-from components.backends.IonQBackend.pytket.extensions.ionq.backends.config import set_ionq_config
+from .backends.IonQBackend.pytket.extensions.ionq import IonQBackend
+from .backends.IonQBackend.pytket.extensions.ionq.backends.config import set_ionq_config
 
-from components.utils.utils import ThreadWithReturnValue as Thread
+from .utils.utils import ThreadWithReturnValue as Thread
 
-from components.utils.logger import *
+from .utils.logger import *
 
 from threading import Semaphore, Lock
 ibmq_semaphore = Semaphore(2)
@@ -33,7 +33,7 @@ ibmq_semaphore = Semaphore(2)
 # from qiskit_ibm_provider import IBMProvider
 # from qiskit_ibm_runtime import QiskitRuntimeService
 
-ibmq_token = None
+ibmq_token = "ae1f67053ca04142450ddb2b9eaf85ed198bcef45d4f0fa499b1ef3a69ef28bd421a54fc23e4710d0ed05e6c7c2e1dcfa1507ca4b63f2c15015ee55837fd077b"
 ibmq_instance = None
 ionq_token = None
 
@@ -207,7 +207,7 @@ class VirtualProvider:
         self._cache_lock.release()
             
         if provider in backends_info and backend in backends_info[provider]:
-            if "last_update" in backends_info[provider][backend] and (datetime.datetime.now(datetime.UTC) - datetime.datetime.fromisoformat(backends_info[provider][backend]["last_update"])).total_seconds() <= cache_timelimit:
+            if "last_update" in backends_info[provider][backend] and (datetime.datetime.utcnow() - datetime.datetime.fromisoformat(backends_info[provider][backend]["last_update"])).total_seconds() <= cache_timelimit:
                 return backends_info[provider][backend]
         
         log_debug(f"VirtualProvider.get_backend_info(provider: {provider}, backend: {backend}): updating info")
@@ -224,7 +224,7 @@ class VirtualProvider:
                 else:
                     backend_info = backend_info.backend_info
                     
-                info["last_update"] = datetime.datetime.now(datetime.UTC).isoformat()
+                info["last_update"] = datetime.datetime.utcnow().isoformat()
                 info["provider"] = provider
                 info["backend"] = backend
                 info["qubits"] = backend_info.n_nodes
@@ -334,9 +334,10 @@ class VirtualProvider:
         
         return info
 
-    def get_ibmq_info(self, backend: str, backend_info: pytket.backends.backendinfo.BackendInfo, info: dict[str, Any]) -> dict[str, Any]:
+    def get_ibmq_info(self, backend: str = "ibm_osaka", backend_info: pytket.backends.backendinfo.BackendInfo = None, info: dict[str, Any] = None) -> dict[str, Any]:
         try:
             b = IBMProvider().get_backend(backend)
+            print(b.properties().gate_error("cx1_0", 2))
             info["technology"] = "simulator" if "simulator" in backend.lower() else "superconducting"
             info["max_shots"] = b.max_shots
             info["max_circuits"] = b.max_experiments
@@ -419,7 +420,7 @@ if __name__ == "__main__":
     import json
     vp = VirtualProvider()
     
-    info = vp.get_backends_info()
+    """info = vp.get_backends_info()
     print(info)
-    json.dump(info, open(".backends.json", "w"), indent=4)
-    
+    json.dump(info, open(".backends.json", "w"), indent=4)"""
+    vp.get_ibmq_info()

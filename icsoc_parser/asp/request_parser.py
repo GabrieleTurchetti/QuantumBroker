@@ -196,7 +196,7 @@ def parse_request(request):
     projected_request = {}
 
     for k,v in request.items():
-        if k not in projected_request and k != "circuit" and not k.startswith("@") and k != "policies": #### modified
+        if k not in projected_request and k != "circuit" and not k.startswith("@") and k != "policies" and k != "circuit":
             projected_request[k] = v
 
     if "optimise" in projected_request:

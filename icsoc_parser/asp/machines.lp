@@ -1,60 +1,55 @@
-machine(ionq).
-status(ionq, online).
-technology(ionq, trapped_ions).
-qubits(ionq, 11).
-language(ionq, openqasm2).
-kWh(ionq, 3).
-max_depth(ionq, 100).
-expected_waiting_time(ionq, 0).
-expected_execution_time(ionq, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*5*S.
-expected_fidelity(ionq, 0).
-expected_cost(ionq, C, Res) :- dispatch(ionq, C, Dispatch), Res = 1*Dispatch.
-region(ionq, europe).
-gates1q_speed(ionq, 3).
-gates2q_speed(ionq, 3).
+machine(ibmq_qasm_simulator).
+status(ibmq_qasm_simulator, online).
+technology(ibmq_qasm_simulator, simulator).
+language(ibmq_qasm_simulator, openqasm2).
+qubits(ibmq_qasm_simulator, 79).
+max_depth(ibmq_qasm_simulator, 100).
+kWh(ibmq_qasm_simulator, 5).
+expected_waiting_time(ibmq_qasm_simulator, 0).
+expected_execution_time(ibmq_qasm_simulator, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
+expected_cost(ibmq_qasm_simulator, C, Res) :- dispatch(ibmq_qasm_simulator, C, Dispatch), Res = 2*Dispatch.
+region(ibmq_qasm_simulator, europe).
+gates1q_speed(ibmq_qasm_simulator, 5).
+gates2q_speed(ibmq_qasm_simulator, 5).
 
-machine(ibm_kyiv).
-status(ibm_kyiv, online).
-technology(ibm_kyiv, superconductor).
-language(ibm_kyiv, openqasm2).
-qubits(ibm_kyiv, 127).
-kWh(ibm_kyiv, 1).
-max_depth(ibm_kyiv, 100).
-expected_waiting_time(ibm_kyiv, 0).
-expected_execution_time(ibm_kyiv, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*5*S.
-expected_cost(ibm_kyiv, C, Res) :- dispatch(ibm_kyiv, C, Dispatch), Res = 5*Dispatch.
-region(ibm_kyiv, europe).
-gates1q_speed(ibm_kyiv, 2).
-gates2q_speed(ibm_kyiv, 2).
+machine(simulator_extended_stabilizer).
+status(simulator_extended_stabilizer, online).
+technology(simulator_extended_stabilizer, simulator).
+language(simulator_extended_stabilizer, openqasm2).
+qubits(simulator_extended_stabilizer, 79).
+max_depth(simulator_extended_stabilizer, 100).
+kWh(simulator_extended_stabilizer, 5).
+expected_waiting_time(simulator_extended_stabilizer, 0).
+expected_execution_time(simulator_extended_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
+expected_cost(simulator_extended_stabilizer, C, Res) :- dispatch(simulator_extended_stabilizer, C, Dispatch), Res = 2*Dispatch.
+region(simulator_extended_stabilizer, europe).
+gates1q_speed(simulator_extended_stabilizer, 5).
+gates2q_speed(simulator_extended_stabilizer, 5).
 
-machine(ibm_perth).
-status(ibm_perth, online).
-technology(ibm_perth, superconductor).
-language(ibm_perth, openqasm3).
-language(ibm_perth, openqasm2).
-qubits(ibm_perth, 7).
-kWh(ibm_perth, 2).
-max_shots(ibm_perth, 20000).
-max_depth(ibm_perth, 100).
-expected_waiting_time(ibm_perth, 0).
-expected_execution_time(ibm_perth, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*10*S.
-expected_cost(ibm_perth, C, Res) :- dispatch(ibm_perth, C, Dispatch), Res = 0*Dispatch.
-region(ibm_perth, europe).
-gates1q_speed(ibm_perth, 3).
-gates2q_speed(ibm_perth, 3).
+machine(simulator_mps).
+status(simulator_mps, online).
+technology(simulator_mps, simulator).
+language(simulator_mps, openqasm2).
+qubits(simulator_mps, 79).
+max_depth(simulator_mps, 100).
+kWh(simulator_mps, 5).
+expected_waiting_time(simulator_mps, 0).
+expected_execution_time(simulator_mps, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
+expected_cost(simulator_mps, C, Res) :- dispatch(simulator_mps, C, Dispatch), Res = 2*Dispatch.
+region(simulator_mps, europe).
+gates1q_speed(simulator_mps, 5).
+gates2q_speed(simulator_mps, 5).
 
-
-machine(aspen_m_3).
-status(aspen_m_3, online).
-technology(aspen_m_3, simulator).
-language(aspen_m_3, openqasm2).
-qubits(aspen_m_3, 79).
-max_depth(aspen_m_3, 100).
-kWh(aspen_m_3, 5).
-expected_waiting_time(aspen_m_3, 0).
-expected_execution_time(aspen_m_3, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
-expected_cost(aspen_m_3, C, Res) :- dispatch(aspen_m_3, C, Dispatch), Res = 2*Dispatch.
-region(aspen_m_3, europe).
-gates1q_speed(aspen_m_3, 5).
-gates2q_speed(aspen_m_3, 5).
-
+machine(simulator_stabilizer).
+status(simulator_stabilizer, online).
+technology(simulator_stabilizer, simulator).
+language(simulator_stabilizer, openqasm2).
+qubits(simulator_stabilizer, 79).
+max_depth(simulator_stabilizer, 100).
+kWh(simulator_stabilizer, 5).
+expected_waiting_time(simulator_stabilizer, 0).
+expected_execution_time(simulator_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
+expected_cost(simulator_stabilizer, C, Res) :- dispatch(simulator_stabilizer, C, Dispatch), Res = 2*Dispatch.
+region(simulator_stabilizer, europe).
+gates1q_speed(simulator_stabilizer, 5).
+gates2q_speed(simulator_stabilizer, 5).

@@ -3,11 +3,11 @@ import pytket.backends
 
 from typing import Any, List
 
-from components.translator import Translator
-from components.virtual_provider import VirtualProvider
-from components.utils.utils import ThreadWithReturnValue as Thread
+from .translator import Translator
+from .virtual_provider import VirtualProvider
+from .utils.utils import ThreadWithReturnValue as Thread
 
-from components.utils.logger import *
+from .utils.logger import *
     
     
 class Dispatcher:

@@ -11,7 +11,7 @@ def policy_is_valid(policy):
         if not policy_name in STANDARD_POLICY:
             return False
 
-        if policy_level < 1 or policy_level > 99:
+        if not isinstance(policy_level, int) or policy_level < 1 or policy_level > 99:
             return False
     else:
         try:
