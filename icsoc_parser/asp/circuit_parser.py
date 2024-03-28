@@ -1,4 +1,5 @@
 import sys
+import json
 
 sys.path.append("../")
 
@@ -7,6 +8,7 @@ from src.qbroker_asp import parse_circuit as parse
 
 def parse_circuit(circuit):
     circuits = brokering(circuit)
+    save_circuits(circuits)
     circuits_parsed = ""
     i = 1
 
@@ -16,3 +18,15 @@ def parse_circuit(circuit):
         i += 1
 
     return circuits_parsed
+
+def save_circuits(circuits):
+    circuits_path = "../circuits/circuits.json"
+    circuits_dict = {}
+    i = 1
+
+    for circuit in circuits.items():
+        circuits_dict[f"c{i}"] = circuit[1]["circuit"]
+        i += 1
+
+    with open(circuits_path, 'w') as f:
+        json.dump(circuits_dict, f)

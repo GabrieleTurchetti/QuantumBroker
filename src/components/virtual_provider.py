@@ -2,6 +2,7 @@ import time
 import json
 import random
 import datetime
+import os
 
 import pytket.backends
 import pytket.architecture
@@ -33,7 +34,7 @@ ibmq_semaphore = Semaphore(2)
 # from qiskit_ibm_provider import IBMProvider
 # from qiskit_ibm_runtime import QiskitRuntimeService
 
-ibmq_token = "ae1f67053ca04142450ddb2b9eaf85ed198bcef45d4f0fa499b1ef3a69ef28bd421a54fc23e4710d0ed05e6c7c2e1dcfa1507ca4b63f2c15015ee55837fd077b"
+ibmq_token = os.getenv("IBM_API_TOKEN")
 ibmq_instance = None
 ionq_token = None
 

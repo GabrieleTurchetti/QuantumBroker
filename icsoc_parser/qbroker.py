@@ -49,35 +49,31 @@ class QBroker:
         return self.policy(computers, request)
     
     def run(self, request):
-        distribution = {}
-
         # print("Running request: {} on {}".format(request, self))
         computers = self.dispatch(request)
 
         for c in computers:
             print("Sending {} shots for circuit {} to {}".format(c[2], c[1], c[0]))
 
-        """virtual_provider = VirtualProvider({
-            "IBMQ": IBM_API_TOKEN
-        })
-
-        p = Program()
-        ro = p.declare('ro', 'BIT', 1)
-        p += X(0)
-        p += MEASURE(0, ro[0])
-        circuit = Circuit(p)
-
         #circuit = qiskit.qasm2.loads(p)
         #circuit = Circuit(circuit)
 
+        circuits_path = "../circuits/circuits.json"
+        circuits_dict = {}
+
+        with open("../circuits/circuits.json", "r") as f:
+            circuits_dict = json.load(f)
+
         dispatch = {
-            "IBMQ": {
-                "ibmq_qasm_simulator": [(circuit, 100)]
-            }
+            "IBMQ": {}
         }
 
-        # for backend, circuit, shots in computers:
-            # dispatch["IBMQ"][backend] = (circuit, shots)
+        for backend, circuit, shots in computers:
+            dispatch["IBMQ"][backend] = [(circuits_dict[circuit], shots)]
+
+        virtual_provider = VirtualProvider({
+            "IBMQ": IBM_API_TOKEN
+        })
 
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
@@ -88,8 +84,7 @@ class QBroker:
             time.sleep(1)
 
         results = dispatcher.get_results(results)
-        print(results)"""
-        return distribution
+        return dispatch
 
 if __name__ == "__main__":
 
