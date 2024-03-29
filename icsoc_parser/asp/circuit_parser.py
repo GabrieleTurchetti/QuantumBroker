@@ -29,4 +29,4 @@ def save_circuits(circuits):
         i += 1
 
     with open(circuits_path, 'w') as f:
-        json.dump(circuits_dict, f)
+        json.dump(circuits_dict, f, indent = 4)

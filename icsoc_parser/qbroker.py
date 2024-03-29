@@ -55,9 +55,6 @@ class QBroker:
         for c in computers:
             print("Sending {} shots for circuit {} to {}".format(c[2], c[1], c[0]))
 
-        #circuit = qiskit.qasm2.loads(p)
-        #circuit = Circuit(circuit)
-
         circuits_path = "../circuits/circuits.json"
         circuits_dict = {}
 
@@ -78,13 +75,7 @@ class QBroker:
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
         results = dispatcher.run(dispatch)
-
-        while not dispatcher.results_ready(results):
-            print("...")
-            time.sleep(1)
-
-        results = dispatcher.get_results(results)
-        return dispatch
+        return results
 
 if __name__ == "__main__":
 

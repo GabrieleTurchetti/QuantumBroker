@@ -5,5 +5,5 @@
     "constraints": [],
     "metrics": [],
     "optimise": [],
-    "policies": ["reliable-99"]
+    "policies": ["green-99"]
 }

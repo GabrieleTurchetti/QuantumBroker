@@ -165,7 +165,7 @@ def parse_circuit(circuit_id, circuit):
         
     text += f"circuit_computer({circuit_id}, {circuit['backend'].lower()}).\n"
     
-    text += "\n\n"
+    text += "\n"
     
     return text
 

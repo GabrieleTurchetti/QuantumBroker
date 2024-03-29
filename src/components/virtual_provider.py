@@ -31,8 +31,12 @@ from .utils.logger import *
 from threading import Semaphore, Lock
 ibmq_semaphore = Semaphore(2)
 
+from dotenv import load_dotenv
+
 # from qiskit_ibm_provider import IBMProvider
 # from qiskit_ibm_runtime import QiskitRuntimeService
+
+load_dotenv()
 
 ibmq_token = os.getenv("IBM_API_TOKEN")
 ibmq_instance = None

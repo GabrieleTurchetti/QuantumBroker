@@ -29,7 +29,7 @@ def _parse_request(request):
 
     with open(OUTPUT, "w+") as f:
         f.write(parsed_request)
-        #print(parsed_request)
+        # print(parsed_request)
 
 def _parse_computers(computers):
     MAP = "asp/"+"machines-map.json"
@@ -51,9 +51,9 @@ def _parse_circuit(circuit):
         f.write(parsed_circuit)
 
 def policy(computers, original_request):
-    #_parse_computers(computers)
+    # _parse_computers(computers)
     _parse_request(original_request)
-    _parse_circuit(original_request["circuit"])
+    # _parse_circuit(original_request["circuit"])
 
     with open("asp/"+"request.lp") as f:
         request = f.read()
@@ -102,6 +102,8 @@ REQUEST = "./requests/"+"apigateway.json"
 if __name__ == "__main__":
     qb = QBroker(policy)
     # print(qb)
+
     with open(REQUEST) as f:
         original_request = json.load(f)
+        
     print(qb.run(original_request))
