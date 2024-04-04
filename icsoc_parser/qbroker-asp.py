@@ -80,24 +80,28 @@ def policy(computers, original_request):
     else:
         answers = solve("asp/"+'program.lp') 
 
-    answer = None
     dispatches = []
 
     for answer in answers.by_predicate:
-        print(f"\n{answer}")
         dispatches.append(answer)
     
+    print("")
+    print(*dispatches, sep = "\n\n")    
     answer = filter_dispatches_by_policies(dispatches, original_request["shots"], original_request["policies"])
     end = time.time()
     # print("End time: {}".format(datetime.fromtimestamp(end)))
     print("\nTime elapsed: {}".format(end - start))
-    print("\nDispatch selected: ", answer, "\n")
+    print(f"\nDispatch selected: {answer}\n")
     return parse_answer(answer)
 
 def parse_answer(answer):
     return answer["dispatch"]
-    
-REQUEST = "./requests/"+"apigateway.json"
+
+def print_results(results):
+    for result in results:
+        print(f"\n{result}")
+
+REQUEST = "./requests/"+"request.json"
 
 if __name__ == "__main__":
     qb = QBroker(policy)
@@ -105,5 +109,5 @@ if __name__ == "__main__":
 
     with open(REQUEST) as f:
         original_request = json.load(f)
-        
+    
     print(qb.run(original_request))

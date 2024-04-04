@@ -159,7 +159,7 @@ def parse_circuit(circuit_id, circuit):
     
     text += f"circuit_lang({circuit_id}, openqasm2).\n"
 
-    text += f"circuit_qubits({circuit_id}, {tket_circuit.n_bits}).\n"
+    text += f"circuit_qubits({circuit_id}, {tket_circuit.n_qubits}).\n"
     text += f"gates1q({circuit_id}, {tket_circuit.n_1qb_gates()}).\n"
     text += f"gates2q({circuit_id}, {tket_circuit.n_2qb_gates()}).\n"
         

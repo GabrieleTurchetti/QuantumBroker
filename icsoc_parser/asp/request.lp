@@ -36,7 +36,7 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, ne
 energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, simulator), gates1q(C,G1), gates2q(C,G2), kWh(M, K), Energy_cost = ((G1 + G2)*S)/10000 * K.
 #show total_energy_cost/1.
 
-total_shots(20).
-max_cost(10000000).
-granularity(1).
+total_shots(10000).
+granularity(1000).
+max_cost(99999999).
 max_time(99999999).

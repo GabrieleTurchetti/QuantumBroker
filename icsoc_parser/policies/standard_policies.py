@@ -15,7 +15,8 @@ def filter_dispatches_by_time_aware_policy(dispatches, total_shots, level):
 def get_dispatch_reliability(dispatch, total_shots):
     used_computers = get_dispatch_len(dispatch)
     shots_difference = get_dispatch_deviation(dispatch, total_shots)
-    reliability = used_computers / ((shots_difference * used_computers) / total_shots + 1)
+    avg = total_shots / used_computers
+    reliability = used_computers / (shots_difference / avg + 1)
     return reliability
 
 def filter_dispatches_by_reliable_policy(dispatches, total_shots, level):

@@ -74,7 +74,7 @@ circuit(c3).
 circuit_depth(c3, 1).
 circuit_lang(c3, openqasm2).
 circuit_qubits(c3, 2).
-gates1q(c3, 1).
+gates1q(c3, 3).
 gates2q(c3, 1).
 circuit_computer(c3, simulator_statevector).
 
@@ -90,7 +90,7 @@ circuit(c5).
 circuit_depth(c5, 1).
 circuit_lang(c5, openqasm2).
 circuit_qubits(c5, 2).
-gates1q(c5, 1).
+gates1q(c5, 9).
 gates2q(c5, 1).
 circuit_computer(c5, ibm_brisbane).
 
@@ -98,7 +98,7 @@ circuit(c6).
 circuit_depth(c6, 1).
 circuit_lang(c6, openqasm2).
 circuit_qubits(c6, 2).
-gates1q(c6, 1).
+gates1q(c6, 9).
 gates2q(c6, 1).
 circuit_computer(c6, ibm_kyoto).
 
@@ -106,7 +106,7 @@ circuit(c7).
 circuit_depth(c7, 1).
 circuit_lang(c7, openqasm2).
 circuit_qubits(c7, 2).
-gates1q(c7, 1).
+gates1q(c7, 9).
 gates2q(c7, 1).
 circuit_computer(c7, ibm_osaka).
 
@@ -114,7 +114,7 @@ circuit(c8).
 circuit_depth(c8, 1).
 circuit_lang(c8, openqasm2).
 circuit_qubits(c8, 2).
-gates1q(c8, 1).
+gates1q(c8, 3).
 gates2q(c8, 1).
 circuit_computer(c8, ibmq_qasm_simulator).
 
@@ -157,7 +157,7 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, ne
 energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, simulator), gates1q(C,G1), gates2q(C,G2), kWh(M, K), Energy_cost = ((G1 + G2)*S)/10000 * K.
 #show total_energy_cost/1.
 
-total_shots(20).
-max_cost(10000000).
-granularity(1).
+total_shots(10000).
+granularity(1000).
+max_cost(99999999).
 max_time(99999999).
