@@ -1,5 +1,5 @@
 import math
-from .dispatch_utils import get_dispatch_len, get_dispatch_deviation
+from .dispatch_utils import get_dispatch_deviation
 
 STANDARD_METRICS = ["total_cost", "total_energy_cost", "total_time", "used_computers", "shots_difference"]
 
@@ -10,7 +10,7 @@ def get_dispatch_value(dispatch, total_shots, metrics, min_values, max_values):
     total_cost = list(dispatch["total_cost"])[0][0]
     total_energy_cost = list(dispatch["total_energy_cost"])[0][0]
     total_time = list(dispatch["total_time"])[0][0]
-    used_computers = get_dispatch_len(dispatch)
+    used_computers = len(dispatch["dispatch"])
     shots_difference = get_dispatch_deviation(dispatch, total_shots)
     normalized_total_cost = get_normalized_value(total_cost, min_values["total_cost"], max_values["total_cost"])
     normalized_total_energy_cost = get_normalized_value(total_energy_cost, min_values["total_energy_cost"], max_values["total_energy_cost"])
@@ -38,8 +38,8 @@ def filter_dispatches_by_custom_policy(dispatches, total_shots, metrics, level):
     max_total_energy_cost = list(max(dispatches, key = lambda dispatch: list(dispatch["total_energy_cost"])[0][0])["total_energy_cost"])[0][0] if "total_energy_cost" in metrics else 0
     min_total_time = list(min(dispatches, key = lambda dispatch: list(dispatch["total_time"])[0][0])["total_time"])[0][0] if "total_time" in metrics else 0
     max_total_time = list(max(dispatches, key = lambda dispatch: list(dispatch["total_time"])[0][0])["total_time"])[0][0] if "total_time" in metrics else 0
-    min_used_computers = get_dispatch_len(min(dispatches, key = lambda dispatch: get_dispatch_len(dispatch))) if "used_computers" in metrics else 0
-    max_used_computers = get_dispatch_len(max(dispatches, key = lambda dispatch: get_dispatch_len(dispatch))) if "used_computers" in metrics else 0
+    min_used_computers = len(min(dispatches, key = lambda dispatch: len(dispatch["dispatch"]))["dispatch"]) if "used_computers" in metrics else 0
+    max_used_computers = len(max(dispatches, key = lambda dispatch: len(dispatch["dispatch"]))["dispatch"]) if "used_computers" in metrics else 0
     min_shots_difference = get_dispatch_deviation(min(dispatches, key = lambda dispatch: get_dispatch_deviation(dispatch, total_shots)), total_shots) if "shots_difference" in metrics else 0
     max_shots_difference = get_dispatch_deviation(max(dispatches, key = lambda dispatch: get_dispatch_deviation(dispatch, total_shots)), total_shots) if "shots_difference" in metrics else 0
     additional_min_values = {}

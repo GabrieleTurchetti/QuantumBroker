@@ -1,14 +1,5 @@
-def get_dispatch_len(dispatch):
-    length = 0
-
-    for _, _, shots in dispatch["dispatch"]:
-        if shots != 0:
-            length += 1
-
-    return length
-
 def get_dispatch_deviation(dispatch, total_shots):
-    used_computers = get_dispatch_len(dispatch)
+    used_computers = len(dispatch["dispatch"])
     avg = total_shots / used_computers
     sum = 0
 

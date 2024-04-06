@@ -6,9 +6,9 @@
 packets(0..P) :- total_shots(Total_shots), granularity(Granularity), P = (Total_shots/Granularity).
 shots(S) :- packets(P), granularity(Granularity), S = P*Granularity.
 
-1 { compatible(M,C) ; not_compatible(M,C) } 1  :- machine(M), circuit(C), circuit_computer(C,M).
+1 { compatible(M,C) ; not_compatible(M,C) } 1 :- machine(M), circuit(C), circuit_computer(C,M).
 
-1 { dispatch(M, C, S) : shots(S) } 1 :- compatible(M, C). %distribute the shots
+1 { dispatch(M, C, S) : shots(S), S > 0 } 1 :- compatible(M, C). %distribute the shots
 
 :- compatible(M,C), qubits(M, FeatQBits), circuit_qubits(C, Req_qubits), FeatQBits < Req_qubits.
 :- compatible(M,C), max_depth(M, FeatDepth), circuit_depth(C, Req_depth), FeatDepth < Req_depth.

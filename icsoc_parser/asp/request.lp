@@ -6,9 +6,9 @@
 packets(0..P) :- total_shots(Total_shots), granularity(Granularity), P = (Total_shots/Granularity).
 shots(S) :- packets(P), granularity(Granularity), S = P*Granularity.
 
-1 { compatible(M,C) ; not_compatible(M,C) } 1  :- machine(M), circuit(C), circuit_computer(C,M).
+1 { compatible(M,C) ; not_compatible(M,C) } 1 :- machine(M), circuit(C), circuit_computer(C,M).
 
-1 { dispatch(M, C, S) : shots(S) } 1 :- compatible(M, C). %distribute the shots
+1 { dispatch(M, C, S) : shots(S), S > 0 } 1 :- compatible(M, C). %distribute the shots
 
 :- compatible(M,C), qubits(M, FeatQBits), circuit_qubits(C, Req_qubits), FeatQBits < Req_qubits.
 :- compatible(M,C), max_depth(M, FeatDepth), circuit_depth(C, Req_depth), FeatDepth < Req_depth.
@@ -37,7 +37,7 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, si
 #show total_energy_cost/1.
 
 total_shots(20000).
-granularity(2000).
+granularity(4000).
 european_machines(European_machines) :- European_machines = #sum{ 1, M : dispatch(M, _, S), shots(S), S > 0, region(M, europe) }.
 max_cost(99999999).
 max_time(99999999).

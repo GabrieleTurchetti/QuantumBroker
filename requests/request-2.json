@@ -10,7 +10,7 @@
         }
     ],
     "policies": [
-        "green-90",
-        "reliable-90"
+        "green-50",
+        "reliable-50"
     ]
 }

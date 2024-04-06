@@ -109,7 +109,7 @@ class QBroker:
 
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
-        results = {} # dispatcher.run(dispatch)
+        results = dispatcher.run(dispatch)
         self.save_results(results)
         return results
 
