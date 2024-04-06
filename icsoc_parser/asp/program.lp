@@ -1,122 +1,3 @@
-machine(ibmq_qasm_simulator).
-status(ibmq_qasm_simulator, online).
-technology(ibmq_qasm_simulator, simulator).
-language(ibmq_qasm_simulator, openqasm2).
-qubits(ibmq_qasm_simulator, 79).
-max_depth(ibmq_qasm_simulator, 100).
-kWh(ibmq_qasm_simulator, 5).
-expected_waiting_time(ibmq_qasm_simulator, 0).
-expected_execution_time(ibmq_qasm_simulator, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
-expected_cost(ibmq_qasm_simulator, C, Res) :- dispatch(ibmq_qasm_simulator, C, Dispatch), Res = 2*Dispatch.
-region(ibmq_qasm_simulator, europe).
-gates1q_speed(ibmq_qasm_simulator, 5).
-gates2q_speed(ibmq_qasm_simulator, 5).
-
-machine(simulator_extended_stabilizer).
-status(simulator_extended_stabilizer, online).
-technology(simulator_extended_stabilizer, simulator).
-language(simulator_extended_stabilizer, openqasm2).
-qubits(simulator_extended_stabilizer, 79).
-max_depth(simulator_extended_stabilizer, 100).
-kWh(simulator_extended_stabilizer, 5).
-expected_waiting_time(simulator_extended_stabilizer, 0).
-expected_execution_time(simulator_extended_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
-expected_cost(simulator_extended_stabilizer, C, Res) :- dispatch(simulator_extended_stabilizer, C, Dispatch), Res = 2*Dispatch.
-region(simulator_extended_stabilizer, europe).
-gates1q_speed(simulator_extended_stabilizer, 5).
-gates2q_speed(simulator_extended_stabilizer, 5).
-
-machine(simulator_mps).
-status(simulator_mps, online).
-technology(simulator_mps, simulator).
-language(simulator_mps, openqasm2).
-qubits(simulator_mps, 79).
-max_depth(simulator_mps, 100).
-kWh(simulator_mps, 5).
-expected_waiting_time(simulator_mps, 0).
-expected_execution_time(simulator_mps, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
-expected_cost(simulator_mps, C, Res) :- dispatch(simulator_mps, C, Dispatch), Res = 2*Dispatch.
-region(simulator_mps, europe).
-gates1q_speed(simulator_mps, 5).
-gates2q_speed(simulator_mps, 5).
-
-machine(simulator_stabilizer).
-status(simulator_stabilizer, online).
-technology(simulator_stabilizer, simulator).
-language(simulator_stabilizer, openqasm2).
-qubits(simulator_stabilizer, 79).
-max_depth(simulator_stabilizer, 100).
-kWh(simulator_stabilizer, 5).
-expected_waiting_time(simulator_stabilizer, 0).
-expected_execution_time(simulator_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*3*S.
-expected_cost(simulator_stabilizer, C, Res) :- dispatch(simulator_stabilizer, C, Dispatch), Res = 2*Dispatch.
-region(simulator_stabilizer, europe).
-gates1q_speed(simulator_stabilizer, 5).
-gates2q_speed(simulator_stabilizer, 5).
-
-circuit(c1).
-circuit_depth(c1, 1).
-circuit_lang(c1, openqasm2).
-circuit_qubits(c1, 2).
-gates1q(c1, 1).
-gates2q(c1, 1).
-circuit_computer(c1, simulator_extended_stabilizer).
-
-circuit(c2).
-circuit_depth(c2, 1).
-circuit_lang(c2, openqasm2).
-circuit_qubits(c2, 2).
-gates1q(c2, 1).
-gates2q(c2, 1).
-circuit_computer(c2, simulator_mps).
-
-circuit(c3).
-circuit_depth(c3, 1).
-circuit_lang(c3, openqasm2).
-circuit_qubits(c3, 2).
-gates1q(c3, 3).
-gates2q(c3, 1).
-circuit_computer(c3, simulator_statevector).
-
-circuit(c4).
-circuit_depth(c4, 1).
-circuit_lang(c4, openqasm2).
-circuit_qubits(c4, 2).
-gates1q(c4, 1).
-gates2q(c4, 1).
-circuit_computer(c4, simulator_stabilizer).
-
-circuit(c5).
-circuit_depth(c5, 1).
-circuit_lang(c5, openqasm2).
-circuit_qubits(c5, 2).
-gates1q(c5, 9).
-gates2q(c5, 1).
-circuit_computer(c5, ibm_brisbane).
-
-circuit(c6).
-circuit_depth(c6, 1).
-circuit_lang(c6, openqasm2).
-circuit_qubits(c6, 2).
-gates1q(c6, 9).
-gates2q(c6, 1).
-circuit_computer(c6, ibm_kyoto).
-
-circuit(c7).
-circuit_depth(c7, 1).
-circuit_lang(c7, openqasm2).
-circuit_qubits(c7, 2).
-gates1q(c7, 9).
-gates2q(c7, 1).
-circuit_computer(c7, ibm_osaka).
-
-circuit(c8).
-circuit_depth(c8, 1).
-circuit_lang(c8, openqasm2).
-circuit_qubits(c8, 2).
-gates1q(c8, 3).
-gates2q(c8, 1).
-circuit_computer(c8, ibmq_qasm_simulator).
 
 
 #show dispatch/3.
@@ -157,7 +38,9 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, ne
 energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, simulator), gates1q(C,G1), gates2q(C,G2), kWh(M, K), Energy_cost = ((G1 + G2)*S)/10000 * K.
 #show total_energy_cost/1.
 
-total_shots(10000).
-granularity(1000).
+total_shots(20000).
+granularity(2000).
+european_machines(European_machines) :- European_machines = #sum{ 1, M : dispatch(M, _, S), shots(S), S > 0, region(M, europe) }.
 max_cost(99999999).
 max_time(99999999).
+#show european_machines/1.

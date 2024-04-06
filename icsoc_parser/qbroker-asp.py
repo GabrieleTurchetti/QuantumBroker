@@ -53,7 +53,7 @@ def _parse_circuit(circuit):
 def policy(computers, original_request):
     # _parse_computers(computers)
     _parse_request(original_request)
-    # _parse_circuit(original_request["circuit"])
+    _parse_circuit(original_request["circuit"])
 
     with open("asp/"+"request.lp") as f:
         request = f.read()
@@ -101,7 +101,7 @@ def print_results(results):
     for result in results:
         print(f"\n{result}")
 
-REQUEST = "./requests/"+"request.json"
+REQUEST = "../requests/" + "request-1.json"
 
 if __name__ == "__main__":
     qb = QBroker(policy)

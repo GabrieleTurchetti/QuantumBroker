@@ -1,0 +1,30 @@
+{
+    "circuit": "OPENQASM 2.0;include \"qelib1.inc\";qreg q[2];creg c[2];h q[0];cx q[0], q[1];measure q[0] -> c[0];measure q[1] -> c[1];",
+    "shots": 20000,
+    "granularity": 2000,
+    "metrics": [
+        {
+            "key": "european_machines",
+            "value": {
+                "sum": [
+                    "1",
+                    "M"
+                ],
+                "such_as":[
+                    "dispatch(M, _, S)",
+                    "shots(S)",
+                    "S > 0",
+                    "region(M, europe)"
+                ]
+            }
+        }
+    ],
+    "policies": [
+        {
+            "metrics": {
+                "european_machines": 1
+            },
+            "level": 99
+        }
+    ]
+}

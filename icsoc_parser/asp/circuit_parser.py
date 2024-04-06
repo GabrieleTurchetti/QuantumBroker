@@ -20,7 +20,7 @@ def parse_circuit(circuit):
     return circuits_parsed
 
 def save_circuits(circuits):
-    circuits_path = "../circuits/circuits.json"
+    circuits_path = "../circuits/circuits-1.json"
     circuits_dict = {}
     i = 1
 
