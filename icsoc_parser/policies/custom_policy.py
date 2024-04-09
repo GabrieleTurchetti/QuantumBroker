@@ -51,7 +51,7 @@ def filter_dispatches_by_custom_policy(dispatches, total_shots, metrics, level):
                 additional_min_values[key] = list(min(dispatches, key = lambda dispatch: list(dispatch[key])[0][0])[key])[0][0]
                 additional_max_values[key] = list(max(dispatches, key = lambda dispatch: list(dispatch[key])[0][0])[key])[0][0]
             except:
-                raise Exception("Metric name not found")
+                raise Exception("Metric not found")
 
     min_values = {
         "total_cost": min_total_cost,

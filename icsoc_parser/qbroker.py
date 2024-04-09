@@ -17,6 +17,7 @@ load_dotenv()
 
 IBM_API_TOKEN = os.getenv("IBM_API_TOKEN")
 COMPUTERS = "machines"
+PATHS_PATH = "../paths.json"
 
 class QBroker:
     def __init__(self, policy, id=0):
@@ -65,7 +66,10 @@ class QBroker:
         return total_distribution
 
     def save_results(self, results):
-        results_path = "../results/results-1.json"
+        results_path = ""
+
+        with open(PATHS_PATH, "r") as f:
+            results_path = json.load(f)["results_path"]
         
         results_dict = {
             "results": [],
@@ -90,8 +94,11 @@ class QBroker:
         for c in computers:
             print("Sending {} shots for circuit {} to {}".format(c[2], c[1], c[0]))
 
-        circuits_path = "../circuits/circuits-1.json"
+        circuits_path = ""
         circuits_dict = {}
+
+        with open(PATHS_PATH, "r") as f:
+            circuits_path = json.load(f)["circuits_path"]
 
         with open(circuits_path, "r") as f:
             circuits_dict = json.load(f)

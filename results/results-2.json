@@ -1,4 +1,20 @@
 {
-    "results": [],
-    "distribution": {}
+    "results": [
+        {
+            "simulator_statevector": {
+                "10": 1000,
+                "11": 1000
+            }
+        },
+        {
+            "simulator_mps": {
+                "10": 3957,
+                "11": 4043
+            }
+        }
+    ],
+    "distribution": {
+        "10": "49.73%",
+        "11": "50.27%"
+    }
 }

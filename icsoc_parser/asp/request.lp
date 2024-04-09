@@ -36,9 +36,8 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, ne
 energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, simulator), gates1q(C,G1), gates2q(C,G2), kWh(M, K), Energy_cost = ((G1 + G2)*S)/10000 * K.
 #show total_energy_cost/1.
 
-total_shots(20000).
-granularity(4000).
-european_machines(European_machines) :- European_machines = #sum{ 1, M : dispatch(M, _, S), shots(S), S > 0, region(M, europe) }.
+total_shots(10000).
+granularity(2000).
+:- compatible(M, C), technology(M, Technology), Technology != simulator.
 max_cost(99999999).
 max_time(99999999).
-#show european_machines/1.

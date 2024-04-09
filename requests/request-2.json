@@ -6,7 +6,7 @@
         {
             "target": "machine.technology",
             "value": "simulator",
-            "op": "diff"
+            "op": "eq"
         }
     ],
     "policies": [
