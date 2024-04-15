@@ -1,16 +1,33 @@
 {
-    "circuit": "OPENQASM 2.0; include \"qelib1.inc\"; gate uf x, y { id x; cx x, y; } qreg q[2]; creg c[2]; x q[1]; h q[0]; h q[1]; uf q[0], q[1]; h q[0]; measure q[0] -> c[0]; measure q[1] -> c[1];",
+    "circuit": "OPENQASM 2.0; include \"qelib1.inc\"; qreg q[2]; creg c[2]; h q[0]; cx q[0], q[1]; measure q[0] -> c[0]; measure q[1] -> c[1];",
     "shots": 10000,
     "granularity": 2000,
-    "constraints": [
+    "metrics": [
         {
-            "target": "machine.technology",
-            "value": "simulator",
-            "op": "eq"
+            "key": "european_machines",
+            "value": {
+                "sum": [
+                    "1",
+                    "M"
+                ],
+                "such_as":[
+                    "dispatch(M, _, S)",
+                    "shots(S)",
+                    "S > 0",
+                    "region(M, europe)"
+                ]
+            }
         }
     ],
-    "policies": [
-        "green-50",
-        "reliable-50"
-    ]
+    "dispatches_policies": [
+        {
+            "metrics": {
+                "total_cost": -0.5,
+                "total_time": -0.2,
+                "european_machines": 1
+            },
+            "level": 99
+        }
+    ],
+    "distribution_policy": "fair"
 }

@@ -35,7 +35,7 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
 
     for policy in policies:
         if not policy_is_valid(policy):
-            raise Exception("Policy not valid")
+            raise Exception("Dispatches policy not valid")
 
         if len(new_dispatches) == 1:
             break

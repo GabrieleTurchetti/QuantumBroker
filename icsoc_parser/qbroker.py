@@ -6,6 +6,7 @@ import qiskit.qasm2
 
 sys.path.append("../")
 
+from icsoc_parser.distribution.distribution_manager import get_distribution
 from qukit.components.dispatcher import Dispatch, Dispatcher
 from qukit.components.virtual_provider import VirtualProvider
 from qukit.components.circuits import Circuit
@@ -47,25 +48,7 @@ class QBroker:
         computers = self.get_computers()
         return self.policy(computers, request)
 
-    def get_distribution(self, results):
-        sum_dict = {}
-        total_distribution = {}
-
-        for result in results:
-            partial_distribution = result.distribution()
-
-            for key, value in partial_distribution.items():
-                if key in sum_dict:
-                    sum_dict[key] += value
-                else:
-                    sum_dict[key] = value
-
-        for key, value in sum_dict.items():
-            total_distribution[key] = f"{round((sum_dict[key] * 100 / len(results)), 2)}%"
-
-        return total_distribution
-
-    def save_results(self, results):
+    def save_results(self, results, policy):
         results_path = ""
 
         with open(PATHS_PATH, "r") as f:
@@ -82,7 +65,7 @@ class QBroker:
             result_dict[result["backend"]] = result["data"]
             results_dict["results"].append(result_dict)
 
-        results_dict["distribution"] = self.get_distribution(results)
+        results_dict["distribution"] = get_distribution(results, policy)
 
         with open(results_path, 'w') as f:
             json.dump(results_dict, f, indent = 4)
@@ -116,8 +99,8 @@ class QBroker:
 
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
-        results = dispatcher.run(dispatch)
-        self.save_results(results)
+        results = {} # dispatcher.run(dispatch)
+        self.save_results(results, request["distribution_policy"])
         return results
 
 if __name__ == "__main__":

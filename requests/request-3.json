@@ -3,13 +3,8 @@
     "shots": 10000,
     "granularity": 2000,
     "dispatches_policies": [
-        {
-            "metrics": {
-                "total_cost": -0.5,
-                "total_time": -0.2
-            },
-            "level": 99
-        }
+        "green-90",
+        "reliable-90"
     ],
-    "distribution_policy": "fair"
+    "distribution_policy": "equal"
 }
