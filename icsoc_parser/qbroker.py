@@ -100,7 +100,7 @@ class QBroker:
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
         results = {} # dispatcher.run(dispatch)
-        self.save_results(results, request["distribution_policy"])
+        # self.save_results(results, request["distribution_policy"])
         return results
 
 if __name__ == "__main__":

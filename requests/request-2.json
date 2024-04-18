@@ -19,12 +19,12 @@
             }
         }
     ],
-    "dispatches_policies": [
+    "dispatch_policies": [
         {
-            "metrics": {
-                "total_cost": -0.5,
-                "total_time": -0.2,
-                "european_machines": 1
+            "metric_weights": {
+                "total_cost": -0.35,
+                "total_time": -0.15,
+                "european_machines": 0.5
             },
             "level": 99
         }
