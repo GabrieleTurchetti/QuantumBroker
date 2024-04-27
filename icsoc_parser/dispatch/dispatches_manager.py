@@ -19,7 +19,7 @@ def policy_is_valid(policy):
                 return False
 
             for key, value in policy["metric_weights"].items():
-                if value < -1 or value > 1:
+                if value < 0 or value > 1:
                     return False
 
             weights_sum = 0
@@ -43,7 +43,7 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
 
     for policy in policies:
         if not policy_is_valid(policy):
-            raise Exception("Dispatches policy not valid")
+            raise Exception("Dispatch policy not valid")
 
         if len(new_dispatches) == 1:
             break
@@ -61,17 +61,24 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
                     new_dispatches = filter_dispatches_by_reliable_policy(new_dispatches, total_shots, policy_level)
                 case "green":
                     new_dispatches = filter_dispatches_by_green_policy(new_dispatches, total_shots, policy_level)
-
         else:
-            new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, policy["metric_weights"], policy["level"])
+            metric_weights = {}
+
+            for key, value in policy["metric_weights"].items():
+                if key[0] == "-":
+                    metric_weights[key[1:]] = ("-", value)
+                else:
+                    metric_weights[key] = ("+", value)
+
+            new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, metric_weights, policy["level"])
 
     if len(new_dispatches) > 1:
         new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, {
-            "total_cost": -0.2,
-            "total_energy_cost": -0.2,
-            "total_time": -0.2,
-            "used_computers": 0.2,
-            "shots_difference": -0.2
+            "total_cost": ("-", 0.2),
+            "total_energy_cost": ("-", 0.2),
+            "total_time": ("-", 0.2),
+            "used_computers": ("+", 0.2),
+            "shots_difference": ("-", 0.2)
         }, 1)
 
     dispatch = new_dispatches[0]

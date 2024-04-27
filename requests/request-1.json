@@ -5,8 +5,8 @@
     "dispatch_policies": [
         {
             "metric_weights": {
-                "total_cost": -0.7,
-                "total_time": -0.3
+                "-total_cost": 0.67,
+                "-total_time": 0.33
             },
             "level": 99
         }

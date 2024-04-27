@@ -22,8 +22,8 @@
     "dispatch_policies": [
         {
             "metric_weights": {
-                "total_cost": -0.35,
-                "total_time": -0.15,
+                "-total_cost": 0.33,
+                "-total_time": 0.17,
                 "european_machines": 0.5
             },
             "level": 99
