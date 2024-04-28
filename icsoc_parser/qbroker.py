@@ -18,7 +18,7 @@ load_dotenv()
 
 IBM_API_TOKEN = os.getenv("IBM_API_TOKEN")
 COMPUTERS = "machines"
-PATHS_PATH = "../paths.json"
+CONFIG = "../config.json"
 
 class QBroker:
     def __init__(self, policy, id=0):
@@ -51,7 +51,7 @@ class QBroker:
     def save_results(self, results, policy):
         results_path = ""
 
-        with open(PATHS_PATH, "r") as f:
+        with open(CONFIG, "r") as f:
             results_path = json.load(f)["results_path"]
         
         results_dict = {
@@ -80,7 +80,7 @@ class QBroker:
         circuits_path = ""
         circuits_dict = {}
 
-        with open(PATHS_PATH, "r") as f:
+        with open(CONFIG, "r") as f:
             circuits_path = json.load(f)["circuits_path"]
 
         with open(circuits_path, "r") as f:
@@ -99,8 +99,8 @@ class QBroker:
 
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
-        results = {} # dispatcher.run(dispatch)
-        # self.save_results(results, request["distribution_policy"])
+        results = dispatcher.run(dispatch)
+        self.save_results(results, request["distribution_policy"])
         return results
 
 if __name__ == "__main__":

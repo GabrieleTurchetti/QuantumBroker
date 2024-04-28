@@ -6,7 +6,7 @@ sys.path.append("../")
 from src.components.qbroker import brokering
 from src.qbroker_asp import parse_circuit as parse
 
-PATHS_PATH = "../paths.json"
+CONFIG = "../config.json"
 
 def parse_circuit(circuit):
     circuits = brokering(circuit)
@@ -26,7 +26,7 @@ def save_circuits(circuits):
     circuits_dict = {}
     i = 1
 
-    with open(PATHS_PATH, "r") as f:
+    with open(CONFIG, "r") as f:
         circuits_path = json.load(f)["circuits_path"]
 
     for circuit in circuits.items():

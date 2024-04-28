@@ -11,7 +11,7 @@ from qbroker import QBroker
 
 from dispatch.dispatches_manager import filter_dispatches_by_policies
 
-PATHS_PATH = "../paths.json"
+CONFIG = "../config.json"
 
 def _parse_request(request):
     OUTPUT = "asp/"+"request.lp"
@@ -55,7 +55,7 @@ def _parse_circuit(circuit):
 def policy(computers, original_request):
     # _parse_computers(computers)
     _parse_request(original_request)
-    # _parse_circuit(original_request["circuit"])
+    _parse_circuit(original_request["circuit"])
 
     with open("asp/"+"request.lp") as f:
         request = f.read()
@@ -105,7 +105,7 @@ def print_results(results):
 
 REQUEST = ""
 
-with open(PATHS_PATH, "r") as f:
+with open(CONFIG, "r") as f:
     REQUEST = json.load(f)["request_path"]
 
 if __name__ == "__main__":
