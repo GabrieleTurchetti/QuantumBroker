@@ -18,18 +18,12 @@ def policy_is_valid(policy):
             if policy["level"] < 1 or policy["level"] > 99:
                 return False
 
-            for key, value in policy["metric_weights"].items():
+            for value in policy["metric_weights"].values():
                 if value < 0 or value > 1:
                     return False
 
-            weights_sum = 0
-
-            for value in policy["metric_weights"].values():
-                weights_sum += abs(value)
-
-            if weights_sum != 1:
+            if sum(policy["metric_weights"].values()) != 1:
                 return false
-
         except:
             return False
 
@@ -62,23 +56,15 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
                 case "green":
                     new_dispatches = filter_dispatches_by_green_policy(new_dispatches, total_shots, policy_level)
         else:
-            metric_weights = {}
-
-            for key, value in policy["metric_weights"].items():
-                if key[0] == "-":
-                    metric_weights[key[1:]] = ("-", value)
-                else:
-                    metric_weights[key] = ("+", value)
-
-            new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, metric_weights, policy["level"])
+            new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, policy["metric_weights"], policy["level"])
 
     if len(new_dispatches) > 1:
         new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, {
-            "total_cost": ("-", 0.2),
-            "total_energy_cost": ("-", 0.2),
-            "total_time": ("-", 0.2),
-            "used_computers": ("+", 0.2),
-            "shots_difference": ("-", 0.2)
+            "total_cost": 0.2,
+            "total_energy_cost": 0.2,
+            "total_time": 0.2,
+            "used_computers": 0.2,
+            "shots_difference": 0.2
         }, 1)
 
     dispatch = new_dispatches[0]

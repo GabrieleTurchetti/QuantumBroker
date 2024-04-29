@@ -5,13 +5,13 @@ from .custom_policy import filter_dispatches_by_custom_policy
 # cost-aware policy
 def filter_dispatches_by_cost_aware_policy(dispatches, total_shots, level):
     return filter_dispatches_by_custom_policy(dispatches, total_shots, {
-        "total_cost": ("-", 1),
+        "total_cost": 1,
     }, level)
 
 # time-aware policy
 def filter_dispatches_by_time_aware_policy(dispatches, total_shots, level):
     return filter_dispatches_by_custom_policy(dispatches, total_shots, {
-        "total_time": ("-", 1),
+        "total_time": 1,
     }, level)
 
 def get_dispatch_reliability(dispatch, total_shots):
@@ -31,6 +31,6 @@ def filter_dispatches_by_reliable_policy(dispatches, total_shots, level):
 # green policy
 def filter_dispatches_by_green_policy(dispatches, total_shots, level):
     return filter_dispatches_by_custom_policy(dispatches, total_shots, {
-        "total_energy_cost": ("-", 1),
+        "total_energy_cost": 1,
     }, level)
     

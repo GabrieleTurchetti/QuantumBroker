@@ -1,20 +1,20 @@
 {
     "results": [
         {
-            "ibmq_qasm_simulator": {
-                "11": 2032,
-                "00": 1968
+            "simulator_extended_stabilizer": {
+                "11": 2001,
+                "00": 1999
             }
         },
         {
-            "simulator_statevector": {
-                "11": 3003,
-                "00": 2997
+            "simulator_mps": {
+                "00": 2019,
+                "11": 1981
             }
         }
     ],
     "distribution": {
-        "11": "50.42%",
-        "00": "49.58%"
+        "11": "49.78%",
+        "00": "50.23%"
     }
 }

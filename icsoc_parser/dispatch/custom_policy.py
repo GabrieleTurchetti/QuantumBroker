@@ -3,42 +3,45 @@ from .dispatch_utils import get_dispatch_deviation
 
 STANDARD_METRICS = ["total_cost", "total_energy_cost", "total_time", "used_computers", "shots_difference"]
 
-def get_normalized_value(value, min, max):
+def get_normalized_benefit_value(value, min, max):
     return (value - min) / ((max - min) if max != min else 1)
+
+def get_normalized_deficit_value(value, min, max):
+    return (max - value) / ((max - min) if max != min else 1)
 
 def get_dispatch_value(dispatch, total_shots, metric_weights, min_values, max_values):
     total_value = 0
     
     if "total_cost" in metric_weights:
         total_cost = list(dispatch["total_cost"])[0][0]
-        normalized_total_cost = get_normalized_value(total_cost, min_values["total_cost"], max_values["total_cost"])
-        total_value += metric_weights["total_cost"][1] * (normalized_total_cost if metric_weights["total_cost"][0] == "+" else 1 - normalized_total_cost)
+        normalized_total_cost = get_normalized_deficit_value(total_cost, min_values["total_cost"], max_values["total_cost"])
+        total_value += metric_weights["total_cost"] * normalized_total_cost
 
     if "total_energy_cost" in metric_weights:
         total_energy_cost = list(dispatch["total_energy_cost"])[0][0]
-        normalized_total_energy_cost = get_normalized_value(total_energy_cost, min_values["total_energy_cost"], max_values["total_energy_cost"])
-        total_value += metric_weights["total_energy_cost"][1] * (normalized_total_energy_cost if metric_weights["total_energy_cost"][0] == "+" else 1 - normalized_total_energy_cost)
+        normalized_total_energy_cost = get_normalized_deficit_value(total_energy_cost, min_values["total_energy_cost"], max_values["total_energy_cost"])
+        total_value += metric_weights["total_energy_cost"] * normalized_total_energy_cost
         
     if "total_time" in metric_weights:
         total_time = list(dispatch["total_time"])[0][0]
-        normalized_total_time = get_normalized_value(total_time, min_values["total_time"], max_values["total_time"])
-        total_value += metric_weights["total_time"][1] * (normalized_total_time if metric_weights["total_time"][0] == "+" else 1 - normalized_total_time)
+        normalized_total_time = get_normalized_deficit_value(total_time, min_values["total_time"], max_values["total_time"])
+        total_value += metric_weights["total_time"] * normalized_total_time
         
     if "used_computers" in metric_weights:
         used_computers = len(dispatch["dispatch"])
-        normalized_used_computers = get_normalized_value(used_computers, min_values["used_computers"], max_values["used_computers"])
-        total_value += metric_weights["used_computers"][1] * (normalized_used_computers if metric_weights["used_computers"] == "+" else 1 - normalized_used_computers)
+        normalized_used_computers = get_normalized_benefit_value(used_computers, min_values["used_computers"], max_values["used_computers"])
+        total_value += metric_weights["used_computers"] * normalized_used_computers
         
     if "shots_difference" in metric_weights:
         shots_difference = get_dispatch_deviation(dispatch, total_shots)
-        normalized_shots_difference = get_normalized_value(shots_difference, min_values["shots_difference"], max_values["shots_difference"])
-        total_value += metric_weights["shots_difference"][1] * (normalized_shots_difference if metric_weights["shots_difference"] == "+" else 1 - normalized_shots_difference)
+        normalized_shots_difference = get_normalized_deficit_value(shots_difference, min_values["shots_difference"], max_values["shots_difference"])
+        total_value += metric_weights["shots_difference"] * normalized_shots_difference
 
     for key, value in metric_weights.items():
         if not key in STANDARD_METRICS:
             metric_value = list(dispatch[key])[0][0]
-            normalized_metric_value = get_normalized_value(metric_value, min_values[key], max_values[key])
-            total_value += value[1] * (normalized_metric_value if value[0] == "+" else 1 - normalized_metric_value)
+            normalized_metric_value = get_normalized_benefit_value(metric_value, min_values[key], max_values[key])
+            total_value += value * normalized_metric_value
 
     return total_value
 

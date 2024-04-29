@@ -22,11 +22,11 @@
     "dispatch_policies": [
         {
             "metric_weights": {
-                "-total_cost": 0.33,
-                "-total_time": 0.17,
+                "total_cost": 0.25,
+                "total_time": 0.25,
                 "european_machines": 0.5
             },
-            "level": 99
+            "level": 90
         }
     ],
     "distribution_policy": "fair"
