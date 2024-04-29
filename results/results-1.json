@@ -1,20 +1,20 @@
 {
     "results": [
         {
-            "ibmq_qasm_simulator": {
-                "11": 1012,
-                "00": 988
+            "simulator_statevector": {
+                "00": 2995,
+                "11": 3005
             }
         },
         {
-            "simulator_statevector": {
-                "00": 4006,
-                "11": 3994
+            "ibmq_qasm_simulator": {
+                "11": 1976,
+                "00": 2024
             }
         }
     ],
     "distribution": {
-        "11": "50.26%",
-        "00": "49.74%"
+        "00": "50.26%",
+        "11": "49.74%"
     }
 }

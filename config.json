@@ -1,5 +1,5 @@
 {
-    "request_path": "../requests/request-1.json",
-    "circuits_path": "../circuits/circuits-1.json",
-    "results_path": "../results/results-1.json"
+    "request_path": "../requests/request-2.json",
+    "circuits_path": "../circuits/circuits-2.json",
+    "results_path": "../results/results-2.json"
 }
