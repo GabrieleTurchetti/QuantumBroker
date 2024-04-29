@@ -1,11 +1,11 @@
 {
     "c1": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nh q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
-    "c2": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[48];\ncreg c[2];\nsx node[46];\nrz(0.5*pi) node[47];\nx node[46];\nsx node[47];\nsx node[46];\nrz(0.5*pi) node[47];\nsx node[46];\nx node[47];\nrz(3.5*pi) node[47];\necr node[47],node[46];\nmeasure node[47] -> c[0];\nmeasure node[46] -> c[1];\n",
+    "c2": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[5];\ncreg c[2];\nsx node[3];\nrz(0.5*pi) node[4];\nx node[3];\nsx node[4];\nsx node[3];\nrz(0.5*pi) node[4];\nsx node[3];\nx node[4];\nrz(3.5*pi) node[4];\necr node[4],node[3];\nmeasure node[4] -> c[0];\nmeasure node[3] -> c[1];\n",
     "c3": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[48];\ncreg c[2];\nsx node[46];\nrz(0.5*pi) node[47];\nx node[46];\nsx node[47];\nsx node[46];\nrz(0.5*pi) node[47];\nsx node[46];\nx node[47];\nrz(3.5*pi) node[47];\necr node[47],node[46];\nmeasure node[47] -> c[0];\nmeasure node[46] -> c[1];\n",
-    "c4": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nh q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
-    "c5": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nh q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
-    "c6": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nrz(0.5*pi) q[0];\nsx q[0];\nrz(0.5*pi) q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
-    "c7": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nrz(0.5*pi) q[0];\nsx q[0];\nrz(0.5*pi) q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
-    "c8": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[5];\ncreg c[2];\nsx node[3];\nrz(0.5*pi) node[4];\nx node[3];\nsx node[4];\nsx node[3];\nrz(0.5*pi) node[4];\nsx node[3];\nx node[4];\nrz(3.5*pi) node[4];\necr node[4],node[3];\nmeasure node[4] -> c[0];\nmeasure node[3] -> c[1];\n",
-    "c9": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[109];\ncreg c[2];\nsx node[107];\nrz(0.5*pi) node[108];\nx node[107];\nsx node[108];\nsx node[107];\nrz(0.5*pi) node[108];\nsx node[107];\nx node[108];\nrz(3.5*pi) node[108];\necr node[108],node[107];\nmeasure node[108] -> c[0];\nmeasure node[107] -> c[1];\n"
+    "c4": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nrz(0.5*pi) q[0];\nsx q[0];\nrz(0.5*pi) q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
+    "c5": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nrz(0.5*pi) q[0];\nsx q[0];\nrz(0.5*pi) q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
+    "c6": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nh q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n",
+    "c7": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[48];\ncreg c[2];\nsx node[46];\nrz(0.5*pi) node[47];\nx node[46];\nsx node[47];\nsx node[46];\nrz(0.5*pi) node[47];\nsx node[46];\nx node[47];\nrz(3.5*pi) node[47];\necr node[47],node[46];\nmeasure node[47] -> c[0];\nmeasure node[46] -> c[1];\n",
+    "c8": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg node[109];\ncreg c[2];\nsx node[107];\nrz(0.5*pi) node[108];\nx node[107];\nsx node[108];\nsx node[107];\nrz(0.5*pi) node[108];\nsx node[107];\nx node[108];\nrz(3.5*pi) node[108];\necr node[108],node[107];\nmeasure node[108] -> c[0];\nmeasure node[107] -> c[1];\n",
+    "c9": "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[2];\ncreg c[2];\nh q[0];\ncx q[0],q[1];\nmeasure q[0] -> c[0];\nmeasure q[1] -> c[1];\n"
 }
