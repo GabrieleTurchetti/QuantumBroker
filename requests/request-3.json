@@ -3,8 +3,8 @@
     "shots": 10000,
     "granularity": 2000,
     "dispatch_policies": [
-        "reliable-99",
-        "green-99"
+        "reliable-90",
+        "green-90"
     ],
     "distribution_policy": "equal"
 }

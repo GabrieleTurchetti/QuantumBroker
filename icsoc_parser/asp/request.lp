@@ -38,5 +38,7 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, si
 
 total_shots(10000).
 granularity(2000).
+european_computers(European_computers) :- European_computers = #sum{ 1, M : dispatch(M, _, S), shots(S), S > 0, region(M, europe) }.
 max_cost(99999999).
 max_time(99999999).
+#show european_computers/1.

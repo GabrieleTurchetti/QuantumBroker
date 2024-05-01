@@ -1,20 +1,26 @@
 {
     "results": [
         {
-            "simulator_extended_stabilizer": {
-                "11": 2001,
-                "00": 1999
+            "simulator_mps": {
+                "11": 2018,
+                "00": 1982
             }
         },
         {
-            "simulator_mps": {
-                "00": 2019,
-                "11": 1981
+            "simulator_extended_stabilizer": {
+                "00": 990,
+                "11": 1010
+            }
+        },
+        {
+            "simulator_stabilizer": {
+                "00": 1954,
+                "11": 2046
             }
         }
     ],
     "distribution": {
-        "11": "49.78%",
-        "00": "50.23%"
+        "11": "50.7%",
+        "00": "49.3%"
     }
 }

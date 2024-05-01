@@ -1,20 +1,32 @@
 {
     "results": [
         {
-            "simulator_mps": {
-                "00": 2037,
-                "11": 1963
+            "simulator_extended_stabilizer": {
+                "11": 1019,
+                "00": 981
             }
         },
         {
-            "simulator_extended_stabilizer": {
-                "11": 3026,
-                "00": 2974
+            "ibmq_qasm_simulator": {
+                "00": 1023,
+                "11": 977
+            }
+        },
+        {
+            "simulator_stabilizer": {
+                "11": 2019,
+                "00": 1981
+            }
+        },
+        {
+            "simulator_mps": {
+                "11": 1026,
+                "00": 974
             }
         }
     ],
     "distribution": {
-        "00": "50.25%",
-        "11": "49.75%"
+        "11": "50.39%",
+        "00": "49.61%"
     }
 }

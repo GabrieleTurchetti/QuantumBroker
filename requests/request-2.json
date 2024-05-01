@@ -4,7 +4,7 @@
     "granularity": 2000,
     "metrics": [
         {
-            "key": "european_machines",
+            "key": "european_computers",
             "value": {
                 "sum": [
                     "1",
@@ -24,7 +24,7 @@
             "metric_weights": {
                 "total_cost": 0.25,
                 "total_time": 0.25,
-                "european_machines": 0.5
+                "european_computers": 0.5
             },
             "level": 90
         }
