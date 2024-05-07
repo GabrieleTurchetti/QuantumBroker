@@ -1,3 +1,4 @@
+# Get the shots difference of a dispatch
 def get_dispatch_deviation(dispatch, total_shots):
     used_computers = len(dispatch["dispatch"])
     avg = total_shots / used_computers

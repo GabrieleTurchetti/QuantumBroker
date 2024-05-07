@@ -22,9 +22,9 @@
     "dispatch_policies": [
         {
             "metric_weights": {
-                "total_cost": 0.25,
-                "total_time": 0.25,
-                "european_computers": 0.5
+                "total_cost": -1,
+                "total_time": -1,
+                "european_computers": 2
             },
             "level": 90
         }

@@ -20,9 +20,9 @@ language(simulator_stabilizer, openqasm2).
 qubits(simulator_stabilizer, 5000).
 max_depth(simulator_stabilizer, 100).
 max_shots(simulator_stabilizer, 20000).
-kWh(simulator_stabilizer, 20).
+kWh(simulator_stabilizer, 11).
 expected_waiting_time(simulator_stabilizer, 0).
-expected_execution_time(simulator_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*700*S/1000.
+expected_execution_time(simulator_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*1100*S/1000.
 expected_cost(simulator_stabilizer, C, Res) :- dispatch(simulator_stabilizer, C, Dispatch), Res = 0*Dispatch/100.
 region(simulator_stabilizer, europe).
 region(simulator_stabilizer, north_america).
@@ -40,9 +40,9 @@ language(simulator_mps, openqasm2).
 qubits(simulator_mps, 100).
 max_depth(simulator_mps, 100).
 max_shots(simulator_mps, 20000).
-kWh(simulator_mps, 30).
+kWh(simulator_mps, 12).
 expected_waiting_time(simulator_mps, 0).
-expected_execution_time(simulator_mps, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*800*S/1000.
+expected_execution_time(simulator_mps, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*1200*S/1000.
 expected_cost(simulator_mps, C, Res) :- dispatch(simulator_mps, C, Dispatch), Res = 0*Dispatch/100.
 region(simulator_mps, europe).
 region(simulator_mps, north_america).
@@ -60,9 +60,9 @@ language(simulator_extended_stabilizer, openqasm2).
 qubits(simulator_extended_stabilizer, 63).
 max_depth(simulator_extended_stabilizer, 100).
 max_shots(simulator_extended_stabilizer, 20000).
-kWh(simulator_extended_stabilizer, 40).
+kWh(simulator_extended_stabilizer, 13).
 expected_waiting_time(simulator_extended_stabilizer, 0).
-expected_execution_time(simulator_extended_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*900*S/1000.
+expected_execution_time(simulator_extended_stabilizer, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*1300*S/1000.
 expected_cost(simulator_extended_stabilizer, C, Res) :- dispatch(simulator_extended_stabilizer, C, Dispatch), Res = 0*Dispatch/100.
 region(simulator_extended_stabilizer, europe).
 region(simulator_extended_stabilizer, north_america).
@@ -77,12 +77,12 @@ machine(ibmq_qasm_simulator).
 status(ibmq_qasm_simulator, online).
 technology(ibmq_qasm_simulator, simulator).
 language(ibmq_qasm_simulator, openqasm2).
-qubits(ibmq_qasm_simulator, 100).
+qubits(ibmq_qasm_simulator, 32).
 max_depth(ibmq_qasm_simulator, 100).
 max_shots(ibmq_qasm_simulator, 20000).
-kWh(ibmq_qasm_simulator, 30).
+kWh(ibmq_qasm_simulator, 14).
 expected_waiting_time(ibmq_qasm_simulator, 0).
-expected_execution_time(ibmq_qasm_simulator, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*800*S/1000.
+expected_execution_time(ibmq_qasm_simulator, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*1400*S/1000.
 expected_cost(ibmq_qasm_simulator, C, Res) :- dispatch(ibmq_qasm_simulator, C, Dispatch), Res = 0*Dispatch/100.
 region(ibmq_qasm_simulator, europe).
 region(ibmq_qasm_simulator, north_america).
@@ -90,19 +90,19 @@ region(ibmq_qasm_simulator, south_america).
 region(ibmq_qasm_simulator, asia).
 region(ibmq_qasm_simulator, africa).
 region(ibmq_qasm_simulator, australia).
-gates1q_speed(ibmq_qasm_simulator, 30).
-gates2q_speed(ibmq_qasm_simulator, 30).
+gates1q_speed(ibmq_qasm_simulator, 50).
+gates2q_speed(ibmq_qasm_simulator, 50).
 
 machine(simulator_statevector).
 status(simulator_statevector, online).
 technology(simulator_statevector, simulator).
 language(simulator_statevector, openqasm2).
-qubits(simulator_statevector, 63).
+qubits(simulator_statevector, 32).
 max_depth(simulator_statevector, 100).
 max_shots(simulator_statevector, 20000).
-kWh(simulator_statevector, 40).
+kWh(simulator_statevector, 15).
 expected_waiting_time(simulator_statevector, 0).
-expected_execution_time(simulator_statevector, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*900*S/1000.
+expected_execution_time(simulator_statevector, C, S, Res) :- circuit_depth(C, Req_depth), shots(S), Res = Req_depth*1500*S/1000.
 expected_cost(simulator_statevector, C, Res) :- dispatch(simulator_statevector, C, Dispatch), Res = 0*Dispatch/100.
 region(simulator_statevector, europe).
 region(simulator_statevector, north_america).
@@ -110,8 +110,8 @@ region(simulator_statevector, south_america).
 region(simulator_statevector, asia).
 region(simulator_statevector, africa).
 region(simulator_statevector, australia).
-gates1q_speed(simulator_statevector, 40).
-gates2q_speed(simulator_statevector, 40).
+gates1q_speed(simulator_statevector, 60).
+gates2q_speed(simulator_statevector, 60).
 circuit(c1).
 circuit_depth(c1, 1).
 circuit_lang(c1, openqasm2).
@@ -225,7 +225,5 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, si
 
 total_shots(10000).
 granularity(2000).
-european_computers(European_computers) :- European_computers = #sum{ 1, M : dispatch(M, _, S), shots(S), S > 0, region(M, europe) }.
 max_cost(99999999).
 max_time(99999999).
-#show european_computers/1.
