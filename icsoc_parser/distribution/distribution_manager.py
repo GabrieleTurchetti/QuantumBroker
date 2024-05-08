@@ -1,6 +1,6 @@
 from .standard_policies import get_distribution_by_equal_policy, get_distribution_by_fair_policy
 
-STANDARD_POLICIES = ["equal", "fair"] # List of standard dispatch policy names
+STANDARD_POLICIES = ["equal", "fair"] # List of the standard distribution policy names
 
 # Check if a distribution policy is correctly formed
 def policy_is_valid(policy):
