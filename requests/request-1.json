@@ -6,9 +6,9 @@
         {
             "metric_weights": {
                 "total_cost": -1,
-                "total_time": -1
+                "total_energy_cost": -1
             },
-            "level": 90
+            "level": 99
         }
     ],
     "distribution_policy": "fair"
