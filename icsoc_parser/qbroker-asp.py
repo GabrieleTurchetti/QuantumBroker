@@ -9,7 +9,7 @@ from asp.request_parser import parse_request
 from asp.circuit_parser import parse_circuit
 from qbroker import QBroker
 
-from dispatch.dispatches_manager import filter_dispatches_by_policies
+from distribution.distribution_manager import filter_dispatches_by_policies
 
 CONFIG = "../config.json"
 
@@ -89,7 +89,7 @@ def policy(computers, original_request):
     
     print("")
     print(*dispatches, sep = "\n\n")    
-    answer = filter_dispatches_by_policies(dispatches, original_request["shots"], original_request["dispatch_policies"])
+    answer = filter_dispatches_by_policies(dispatches, original_request["shots"], original_request["distribution_policies"])
     end = time.time()
     # print("End time: {}".format(datetime.fromtimestamp(end)))
     print("\nTime elapsed: {}".format(end - start))

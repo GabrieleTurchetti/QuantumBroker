@@ -1,5 +1,5 @@
 import math
-from .dispatch_utils import get_dispatch_mean_deviation, get_metric_mean, get_metric_standard_deviation
+from .distribution_utils import get_dispatch_mean_deviation, get_metric_mean, get_metric_standard_deviation
 
 STANDARD_METRICS = ["total_cost", "total_energy_cost", "total_time", "used_computers", "shots_difference"]
 

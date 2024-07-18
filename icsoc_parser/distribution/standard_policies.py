@@ -1,45 +1,37 @@
-# Equal policy
-def get_distribution_by_equal_policy(results):
-    total_distribution = {}
-    results_shots = {}
-    total_shots = 0
+import math
+from .distribution_utils import get_dispatch_mean_deviation
+from .custom_policy import filter_dispatches_by_custom_policy
 
-    # For each computer in the results
-    for result in results:
-        result = result.to_dict()
-        total_shots += result["shots"]
+# Cost-aware policy
+def filter_dispatches_by_cost_aware_policy(dispatches, total_shots, level):
+    return filter_dispatches_by_custom_policy(dispatches, total_shots, {
+        "total_cost": -1,
+    }, level)
 
-        # For a computer results, add the values in a dictionary
-        for key, value in result["data"].items():
-            if key in results_shots:
-                results_shots[key] += value
-            else:
-                results_shots[key] = value
+# Time-aware policy
+def filter_dispatches_by_time_aware_policy(dispatches, total_shots, level):
+    return filter_dispatches_by_custom_policy(dispatches, total_shots, {
+        "total_time": -1,
+    }, level)
 
-    # Calculate the final distribution
-    for key, value in results_shots.items():
-        total_distribution[key] = f"{round(value * 100 / total_shots, 2)}%"
+def get_dispatch_reliability(dispatch, total_shots):
+    used_computers = len(dispatch["dispatch"])
+    shots_difference = get_dispatch_mean_deviation(dispatch, total_shots)
+    avg = total_shots / used_computers
+    reliability = used_computers / (shots_difference / avg + 1)
+    return reliability
 
-    return total_distribution
-
-# Fair policy
-def get_distribution_by_fair_policy(results):
-    total_distribution = {}
-    partial_distributions_sum = {}
-
-    # For each computer in the results
-    for result in results:
-        partial_distribution = result.distribution() # Get the partial distribution of a computer results
-
-        # For each entry of the partial distribution, add the value in a dictionary
-        for key, value in partial_distribution.items():
-            if key in partial_distributions_sum:
-                partial_distributions_sum[key] += value
-            else:
-                partial_distributions_sum[key] = value
-
-    # Calculate the final distribution
-    for key, value in partial_distributions_sum.items():
-        total_distribution[key] = f"{round(value * 100 / len(results), 2)}%"
-
-    return total_distribution
+# Reliable policy
+def filter_dispatches_by_reliable_policy(dispatches, total_shots, level):
+    percentage = 100 - level # Percentage of the dispatches than will have to remain
+    new_size = math.ceil((len(dispatches) * percentage) / 100) # Size of the new dispatches list
+    # Sort the list of the dispatches by the calculated value of each dispatch
+    dispatches.sort(key = lambda dispatch: get_dispatch_reliability(dispatch, total_shots), reverse = True)
+    return dispatches[:new_size]
+    
+# Green policy
+def filter_dispatches_by_green_policy(dispatches, total_shots, level):
+    return filter_dispatches_by_custom_policy(dispatches, total_shots, {
+        "total_energy_cost": -1,
+    }, level)
+    

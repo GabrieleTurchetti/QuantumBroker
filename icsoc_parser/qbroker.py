@@ -6,7 +6,7 @@ import qiskit.qasm2
 
 sys.path.append("../")
 
-from icsoc_parser.distribution.distribution_manager import get_distribution
+from icsoc_parser.processing.processing_manager import get_distribution
 from qukit.components.dispatcher import Dispatch, Dispatcher
 from qukit.components.virtual_provider import VirtualProvider
 from qukit.components.circuits import Circuit
@@ -100,7 +100,7 @@ class QBroker:
         dispatcher = Dispatcher(virtual_provider)
         dispatch = dispatcher.from_dict(dispatch)
         results = {} # dispatcher.run(dispatch)
-        # self.save_results(results, request["distribution_policy"])
+        # self.save_results(results, request["processing_policy"])
         return results
 
 if __name__ == "__main__":

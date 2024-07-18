@@ -11,7 +11,7 @@ expected_execution_time(ibm_kyoto, C, S, Res) :- circuit_depth(C, Req_depth), sh
 expected_cost(ibm_kyoto, C, Res) :- dispatch(ibm_kyoto, C, Dispatch), Res = 100*Dispatch/1000.
 region(ibm_kyoto, asia).
 gates1q_speed(ibm_kyoto, 10).
-gates2q_speed(ibm_kyoto, 10).
+gates2q_speed(ibm_kyoto, 100).
 
 machine(simulator_stabilizer).
 status(simulator_stabilizer, online).
