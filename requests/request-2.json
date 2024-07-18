@@ -19,7 +19,7 @@
             }
         }
     ],
-    "dispatch_policies": [
+    "distribution_policies": [
         {
             "metric_weights": {
                 "total_cost": -1,
@@ -29,5 +29,5 @@
             "level": 99
         }
     ],
-    "distribution_policy": "fair"
+    "processing_policy": "fair"
 }

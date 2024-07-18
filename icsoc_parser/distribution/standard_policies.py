@@ -1,5 +1,4 @@
 import math
-from .distribution_utils import get_dispatch_mean_deviation
 from .custom_policy import filter_dispatches_by_custom_policy
 
 # Cost-aware policy
@@ -15,8 +14,8 @@ def filter_dispatches_by_time_aware_policy(dispatches, total_shots, level):
     }, level)
 
 def get_dispatch_reliability(dispatch, total_shots):
-    used_computers = len(dispatch["dispatch"])
-    shots_difference = get_dispatch_mean_deviation(dispatch, total_shots)
+    used_computers = list(dispatch["used_computers"])[0][0]
+    shots_difference = list(dispatch["shots_difference"])[0][0]
     avg = total_shots / used_computers
     reliability = used_computers / (shots_difference / avg + 1)
     return reliability

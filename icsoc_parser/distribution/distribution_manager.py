@@ -27,7 +27,7 @@ def policy_is_valid(policy):
 
     return True
 
-# Main function that handle the list of the dispatch policies in the request
+# Main function that handle the list of the distribution policies in the request
 def filter_dispatches_by_policies(dispatches, total_shots, policies):
     if len(dispatches) < 1:
         raise Exception("No dispach found")
@@ -41,7 +41,7 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
         if len(new_dispatches) == 1:
             break
         
-        # If is a standard dispatch policy
+        # If is a standard distribution policy
         if isinstance(policy, str):
             policy_name = "-".join(policy.split("-")[:-1])
             policy_level = int(policy.split("-")[-1])
@@ -55,11 +55,11 @@ def filter_dispatches_by_policies(dispatches, total_shots, policies):
                     new_dispatches = filter_dispatches_by_reliable_policy(new_dispatches, total_shots, policy_level)
                 case "green":
                     new_dispatches = filter_dispatches_by_green_policy(new_dispatches, total_shots, policy_level)
-        # If is a custom dispatch policy
+        # If is a custom distribution policy
         else:
             new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, policy["metric_weights"], policy["level"])
 
-    # If there are more than one dispatch, the last are filtered further with one general dispatch policy
+    # If there are more than one dispatch, the last are filtered further with one general distribution policy
     if len(new_dispatches) > 1:
         new_dispatches = filter_dispatches_by_custom_policy(new_dispatches, total_shots, {
             "total_cost": -1,

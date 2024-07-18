@@ -189,7 +189,8 @@ circuit_computer(c9, ibm_sherbrooke).
 #show dispatch/3.
 #show total_cost/1.
 #show total_time/1.
-%#show used_computers/1.
+#show used_computers/1.
+#show shots_difference/1.
 
 packets(0..P) :- total_shots(Total_shots), granularity(Granularity), P = (Total_shots/Granularity).
 shots(S) :- packets(P), granularity(Granularity), S = P*Granularity.

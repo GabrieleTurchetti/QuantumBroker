@@ -2,7 +2,7 @@
     "circuit": "OPENQASM 2.0; include \"qelib1.inc\"; qreg q[2]; creg c[2]; h q[0]; cx q[0], q[1]; measure q[0] -> c[0]; measure q[1] -> c[1];",
     "shots": 10000,
     "granularity": 2000,
-    "dispatch_policies": [
+    "distribution_policies": [
         {
             "metric_weights": {
                 "total_cost": -1,
@@ -11,5 +11,5 @@
             "level": 99
         }
     ],
-    "distribution_policy": "fair"
+    "processing_policy": "fair"
 }
