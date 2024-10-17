@@ -210,7 +210,7 @@ shots(S) :- packets(P), granularity(Granularity), S = P*Granularity.
 :- total_cost(V), max_cost(Max_cost), V > Max_cost. % stay in the budget
 :- total_time(V), max_time(Max_time), V > Max_time. % stay in the budget
 
-shots_difference(V) :- used_computers(Comp), total_shots(T), Ideal = T/Comp, V = #sum{E,M,C : dispatch(M, C, S), E1 = S-Ideal, E = |E1|}.
+shots_difference(V) :- used_computers(Comp), total_shots(T), Ideal = T/Comp, V = #sum{E,M,C : dispatch(M, C, S), E1 = S-Ideal, E = |E1|/Comp}.
 used_computers(V) :- V = #sum{1,M : dispatch(M,_,S), shots(S), S > 0}.
 total_load(V) :- V = #sum{S,M,C : dispatch(M,C,S), compatible(M,C), shots(S)}.
 total_cost(V) :- V = #sum{Cost,M,C : expected_cost(M,C,Cost), compatible(M,C), dispatch(M,C,S), S > 0 }.
@@ -227,5 +227,7 @@ energy_cost(M, C, S, Energy_cost) :- dispatch(M,C,S), shots(S), technology(M, si
 
 total_shots(10000).
 granularity(2000).
+european_computers(European_computers) :- European_computers = #sum{ 1, M : dispatch(M, _, S), shots(S), S > 0, region(M, europe) }.
 max_cost(99999999).
 max_time(99999999).
+#show european_computers/1.
